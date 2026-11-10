@@ -1,52 +1,120 @@
 <div align="center">
 
 # 🛡️ CYBER-GUARD
-### The All-in-One Open-Source Cybersecurity Engine & Autonomous AI Agent
+### Next-Generation Autonomous Vulnerability Intelligence & Remediation Platform
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8.svg?style=flat-square&logo=go)](https://golang.org)
 [![Python Version](https://img.shields.io/badge/Python-3.11+-3776AB.svg?style=flat-square&logo=python)](https://python.org)
 [![SARIF Standard](https://img.shields.io/badge/Standard-SARIF%20v2.1.0-orange.svg?style=flat-square)](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
-[![Protocol](https://img.shields.io/badge/AI%20Agent-Model%20Context%20Protocol%20(MCP)-8A2BE2.svg?style=flat-square)](https://modelcontextprotocol.io)
+[![AI Agent Ready](https://img.shields.io/badge/AI%20Protocol-Model%20Context%20Protocol%20(MCP)-8A2BE2.svg?style=flat-square)](https://modelcontextprotocol.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 [![DCO](https://img.shields.io/badge/DCO-Signed--off--by-green.svg?style=flat-square)](CONTRIBUTING.md)
 [![OpenSSF Scorecard](https://img.shields.io/badge/OpenSSF-Scorecard%2010%2F10-brightgreen.svg?style=flat-square)](.github/workflows/openssf_scorecard.yml)
 
 <p align="center">
-  <b>Scan 15 Security Domains • Correlate Attack Paths • Auto-Remediate with AI</b>
+  <b>Find Real Vulnerabilities in Modern Software • Correlate Cross-Layer Exploit Chains • Auto-Remediate with Precision</b>
 </p>
 
-[Why CyberGuard?](#-why-cyberguard) •
+[The Vision](#-the-vision) •
+[Core Capabilities](#-core-capabilities) •
 [Quickstart](#-quickstart) •
 [Architecture](#-system-architecture) •
-[Coverage Matrix](#-15-security-domains-coverage) •
-[Community & Contributing](#-join-the-community) •
-[Roadmap](ROADMAP.md)
+[Modern Vulnerability Coverage](#-built-for-modern-stacks) •
+[Contributing](#-join-the-community) •
+[Milestones](ROADMAP.md)
 
 </div>
 
 ---
 
-## ⚡ What is CyberGuard?
+## 🌟 The Vision: Beyond Tool Bundles
 
-Modern security teams and developers are drowning in alert fatigue. A typical engineering organization runs 10+ disconnected scanners (SAST, SCA, Secrets, Cloud, Containers, DAST), generating thousands of siloed alerts with no context and false positive rates exceeding 60%.
+Most security tools available today were built for the software architectures of a decade ago. Simply wrapping or stitching together legacy scanners produces shallow results: thousands of disconnected alerts, 70%+ false positive rates, and zero understanding of how a vulnerability in code actually interacts with cloud IAM permissions, API routes, or data pipelines.
 
-**CyberGuard** changes this paradigm. It is a single, blazingly fast Go binary and autonomous AI Agent Skill that orchestrates best-of-breed open-source security engines, normalizes all findings into a universal data bus, traces exploit chains through an in-memory Attack Path Graph, and **automatically writes syntax-verified code patches and unit tests** to remediate vulnerabilities.
+**CyberGuard is a purpose-built, top-tier Vulnerability Intelligence Product designed for the applications being built right now:**
+
+- **Modern Software Stacks:** Built natively for Next.js, FastAPI, Go, Rust, Spring Boot, GraphQL, gRPC, Cloud-Native Kubernetes, and GenAI/LLM-integrated applications.
+- **Deep Semantic Taint & Reachability Analysis:** Traces user input from modern API endpoints through call graphs to critical sinks (SQL, Command Injection, SSRF, Deserialization, LLM Prompt Injection).
+- **In-Memory Attack Path Graph (DAG):** Correlates multi-layer findings into coherent exploit paths. A vulnerable dependency is only flagged as critical if CyberGuard mathematically proves it is **reachable and exploitable** through an exposed route.
+- **Autonomous, Syntax-Preserving Remediation:** Don't just report vulnerabilities—fix them. CyberGuard generates syntax-verified AST code patches and automated regression tests.
+- **First-Class AI Agent Skill:** Operates standalone via a blazing-fast Go binary, or natively inside AI coding agents (Claude Code, Antigravity, Cursor) via the Anthropic Model Context Protocol (MCP).
 
 ---
 
-## 🌟 Why CyberGuard?
+## ⚡ Core Capabilities
 
-| Feature | Traditional Security Scanners | CyberGuard |
+### 1. 🎯 Deep Native Vulnerability Discovery
+CyberGuard combines native AST parsing, semantic taint tracking, and modern API contract fuzzing to detect flaws that traditional regex and shallow scanners miss:
+- **OWASP API Top 10:** Broken Object Level Authorization (BOLA), Broken Function Level Authorization (BFLA), Mass Assignment, and Unrestricted Resource Consumption.
+- **OWASP Top 10 for LLMs / AI Apps:** Prompt Injection, Insecure Output Handling, Training Data Poisoning, Sensitive Info Disclosure, and Vector DB access control flaws.
+- **Cross-Layer Vulnerability Tracing:** Correlating an exposed API route in source code with an overly permissive AWS IAM role or Kubernetes cluster binding.
+
+### 2. 🧠 Tri-Factor Noise Elimination (`CVSS × EPSS × Reachability`)
+Legacy scanners overwhelm engineers by marking thousands of CVEs as "Critical" purely based on theoretical CVSS scores. CyberGuard calculates **real-world risk**:
+$$\text{Risk Score} = \text{CVSS (Severity)} \times \text{EPSS (Active Exploitation Probability)} \times \text{Reachability Index}$$
+If a vulnerable function is never invoked by your application's entry points, its priority is automatically downgraded—saving hundreds of wasted engineering hours.
+
+### 3. 🕸️ In-Memory Attack Path Graph (DAG)
+Rather than showing 500 flat alerts, CyberGuard builds a unified Directed Acyclic Graph connecting:
+$$\text{External Entrypoint} \longrightarrow \text{API Route} \longrightarrow \text{Vulnerable Code / Dependency} \longrightarrow \text{Leaked Credential} \longrightarrow \text{Cloud Privilege Escalation}$$
+Security teams see the **exact kill-chain** an attacker would follow to compromise production assets.
+
+### 4. 🛠️ Autonomous AST Remediation Engine
+CyberGuard writes production-ready code fixes:
+- Parses the target file's Abstract Syntax Tree (AST) using Tree-sitter.
+- Applies surgical, idiomatic patches (parameterized queries, input sanitization, safe deserializers, updated imports).
+- Auto-generates unit tests to verify the vulnerability is eradicated without breaking business logic.
+
+---
+
+## 🏛️ System Architecture
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        CYBERGUARD CLI & TUI INTERFACE                  │
+│   cyberguard [scan | audit | trace | fix | mcp | report]               │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│             INTELLIGENCE ENGINE & ATTACK SURFACE DISCOVERY             │
+│   - Application Architecture & Endpoint Detector                       │
+│   - Semantic Taint Analyzer (Sources ➔ Sanitizers ➔ Sinks)             │
+│   - Modern API & LLM Security Validator                                │
+│   - Universal SARIF v2.1.0 & OCSF Security Bus                         │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│            CORRELATION ENGINE & ATTACK PATH GRAPH (DAG)                │
+│   - In-Memory Graph Engine (Code ➔ Cloud ➔ Network ➔ Identity)         │
+│   - Semantic Reachability Checker (Call Graph Call-Path Verifier)      │
+│   - Tri-Factor Prioritizer: CVSS × EPSS (Live Threat Intel) × Reach    │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ Prioritized, Verified Exploit Paths
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│         AUTONOMOUS REMEDIATION & MODEL CONTEXT PROTOCOL (MCP)          │
+│   - Tree-sitter AST Patch Engine (Multi-language surgical fixes)       │
+│   - Regression Test Synthesizer (Auto-generates unit tests)            │
+│   - MCP Protocol Server (Bi-directional AI Pair Programmer Skill)      │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🛡️ Built for Modern Stacks
+
+CyberGuard is designed from the ground up for modern application engineering:
+
+| Layer | Modern Target Stack | What CyberGuard Discovers |
 | :--- | :--- | :--- |
-| **Tool Footprint** | 10+ disjointed CLI tools & commercial agents | **1 single static Go binary** & unified CLI |
-| **Domain Coverage** | Siloed (SAST only, or SCA only, or Cloud only) | **15 security domains** unified in one workflow |
-| **Data Format** | Conflicting JSON, XML, CSV, and proprietary blobs | Universal **OASIS SARIF v2.1.0 & OCSF** bus |
-| **Alert Prioritization** | Naive CVSS scores (everything is "Critical") | **Tri-Factor Engine:** `CVSS × EPSS × Reachability` |
-| **Exploit Correlation** | None (findings evaluated in isolation) | **In-Memory Attack Path Graph (DAG)** |
-| **Remediation** | Read-only warnings ("Please fix this line") | **Autonomous AST code patches & unit tests** |
-| **AI Integration** | Proprietary walled-garden chatbots | **Anthropic Model Context Protocol (MCP)** native |
-| **Licensing** | Vendor lock-in or copyleft restrictions | **100% Clean-Room Apache 2.0** |
+| **Modern Frameworks** | Next.js, FastAPI, Go Fiber, Spring Boot 3, Rust Axum | Server-Side Request Forgery (SSRF), Prototype Pollution, Tainted Data Flows, CORS Misconfigurations |
+| **APIs & Microservices** | REST, GraphQL, gRPC, OpenAPI 3.0 | BOLA / IDOR, Broken Function Level Auth (BFLA), Mass Assignment, GraphQL Depth Limits |
+| **AI / GenAI Stacks** | LangChain, LlamaIndex, OpenAI SDK, Vector DBs | Prompt Injection, Insecure Output Handling, Excessive Data Exposure in RAG Pipelines |
+| **Supply Chain & SBOM** | npm, PyPI, Go modules, Cargo, Maven | Malicious packages, dependency confusion, typosquatting, reachable CVEs |
+| **Cloud-Native & IaC** | Kubernetes, Terraform, Helm, Docker, AWS/GCP | IAM privilege escalation, privilege containers, ingress exposure, hardcoded secrets |
 
 ---
 
@@ -61,121 +129,41 @@ cd CYBER-GUARD
 go build -o cyberguard cmd/cyberguard/main.go
 ```
 
-### Basic Commands
+### Essential Commands
 
 ```bash
-# Run a comprehensive audit of your codebase and dependencies
+# Perform deep vulnerability discovery across your application stack
 cyberguard scan .
 
-# Run specific domains (e.g., Code Security and Secret Leaks)
-cyberguard scan --domain sast,secrets .
+# Trace attack paths and correlate code vulnerabilities with cloud/network assets
+cyberguard trace .
 
-# Trace correlated exploit chains across code, cloud, and infrastructure
-cyberguard dag .
-
-# Automatically generate AST code patches and unit tests for verified flaws
+# Automatically generate AST-verified code fixes and unit tests
 cyberguard fix --auto .
 
-# Launch the autonomous Model Context Protocol (MCP) server for Claude / AI Agents
+# Launch CyberGuard as an autonomous Model Context Protocol (MCP) server
 cyberguard mcp --port 8080
 ```
 
 ---
 
-## 🏛️ System Architecture
+## 🤝 Join the Community & Elevate Open-Source Security
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        CYBERGUARD CLI & TUI INTERFACE                  │
-│   cyberguard [scan | fix | audit | report | mcp | dag | verify]        │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                  CYBERGUARD MICROKERNEL & ORCHESTRATOR                 │
-│   - Process Isolation Boundary (Clean-Room Subprocess Supervisor)      │
-│   - Cryptographic Proof-of-Authorization Gate (.security-scope.yaml)   │
-│   - Unified YAML / Environment Configuration Engine                    │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Invokes 72+ Open-Source Tools
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                      15 SPECIALIZED SECURITY ENGINES                   │
-│   SAST • SCA • Secrets • OCI • Network • DAST • API • Cloud • IaC ... │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Streams Normalized SARIF v2.1.0
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│            UNIVERSAL DATA BUS & ATTACK GRAPH ENGINE (DAG)              │
-│   - OASIS SARIF v2.1.0 & OCSF Data Normalization                       │
-│   - Tri-Factor Scoring (CVSS v3/4 × EPSS Probability × Reachability)   │
-│   - In-Memory Directed Acyclic Graph (DAG) Exploit Path Modeling       │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Context-Rich Actionable Findings
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│         AUTONOMOUS AI AGENT & AUTOMATED REMEDIATION ENGINE             │
-│   - Model Context Protocol (MCP) Server for Anthropic Claude / AI IDEs │
-│   - Tree-sitter AST Multi-Language Patch Generator                     │
-│   - Automated Unit Test Generator (Zero-Regression Verification)       │
-└────────────────────────────────────────────────────────────────────────┘
-```
+CyberGuard is being built in the open to democratize enterprise-grade vulnerability intelligence for developers and security teams globally.
+
+- ⭐ **Star the Repository:** Help us build momentum and grow into the #1 open-source security project.
+- 💡 **Contribute Ideas & Code:** Check out open issues labeled `good first issue` or start a discussion.
+- 🛡️ **Clean-Room & Quality Standards:** Every contribution must be signed with a **Developer Certificate of Origin** (`git commit -s`) and include automated unit tests (>80% coverage).
+- 📜 **Code of Conduct:** Read our [Contributor Covenant](CODE_OF_CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md).
 
 ---
 
-## 🌐 15 Security Domains Coverage
+## ⚖️ Legal Safe Harbor & Ethical Research
 
-CyberGuard orchestrates the world's most trusted open-source tools across every stage of the software delivery lifecycle:
+CyberGuard is built **strictly for defensive security auditing, authorized vulnerability research, and continuous remediation**.
 
-| Domain | Focus Area | Integrated Tools |
-| :--- | :--- | :--- |
-| **1. SAST** | Static Application Security Testing | Semgrep, CodeQL, Gosec, Bandit, Flawfinder |
-| **2. SCA** | Software Composition Analysis & SBOM | Trivy, Grype, Syft, OSV-Scanner |
-| **3. Secrets** | Hardcoded Credentials & API Keys | Gitleaks, TruffleHog (isolated), Whispers |
-| **4. Container** | Dockerfile & OCI Image Vulnerabilities | Trivy OCI, Grype Container, Dockle, Hadolint |
-| **5. Network** | Port Auditing & Attack Surface Recon | Nmap, Masscan (isolated), RustScan, Amass |
-| **6. DAST** | Dynamic Web Application Security | OWASP ZAP, Nuclei, Nikto, Katana |
-| **7. API Security** | OpenAPI/REST Schema Fuzzing | Schemathesis, RESTler, Astra |
-| **8. Cloud (CSPM)** | Multi-Cloud Misconfigurations (AWS/GCP/Azure) | ScoutSuite, Prowler, CloudSploit, Steampipe |
-| **9. IaC Security** | Terraform, Kubernetes, CloudFormation & Helm | Checkov, tfsec, KICS, Terrascan, Trivy-IaC |
-| **10. CI/CD & SLSA**| Pipeline Security & Supply Chain Attestation | Chain-bench, Cosign, SLSA-verifier |
-| **11. Mobile** | Android & iOS Static / Dynamic Analysis | MobSF, Apktool, Jadx |
-| **12. Threat Model**| Threat Modeling & MITRE ATT&CK Mapping | MITRE ATT&CK Navigator, OWASP Threat Dragon |
-| **13. Attack Graph**| Cross-domain exploit chain correlation | In-memory Directed Acyclic Graph (DAG) |
-| **14. Tri-Factor** | True-positive vulnerability prioritization | CVSS × EPSS × Reachability Analyzer |
-| **15. Remediation** | Automatic AST syntax patching & test creation | Tree-sitter, Git Patch Engine, LLM Agent |
-
----
-
-## 🤝 Join the Community & Contribute
-
-We are building CyberGuard to be the **#1 open-source cybersecurity project in the world**. Whether you are a security researcher, Go developer, Python engineer, or technical writer, your contributions make a massive impact!
-
-### How You Can Help
-- ⭐ **Star the Repository:** Help more security engineers discover CyberGuard.
-- 🐛 **Report Issues:** Found a bug or false positive? Open an [Issue](https://github.com/yusufjohn-shaik/CYBER-GUARD/issues).
-- 🔌 **Propose New Tools:** Have a favorite open-source tool? Submit a [Tool Integration Proposal](.github/ISSUE_TEMPLATE/3_tool_integration.yml).
-- 🛠️ **Submit Pull Requests:** Check out open issues labeled `good first issue` or `help wanted`.
-
-### Contributor Standards
-- Every commit must include a **Developer Certificate of Origin (DCO)** sign-off (`git commit -s`).
-- All contributions must adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md).
-- To preserve enterprise adoption, CyberGuard maintains a **Clean-Room Architecture**: never vendor or statically link GPL/AGPL copyleft libraries into the core Go engine.
-
----
-
-## 🗺️ Project Milestones & Roadmap
-
-CyberGuard is actively evolving through structured modular milestones. View the complete engineering roadmap and delivery schedule in **[ROADMAP.md](ROADMAP.md)**.
-
----
-
-## ⚖️ Legal Safe Harbor & Ethical Use
-
-CyberGuard is built **strictly for authorized cybersecurity assessments, defensive engineering, and good-faith security research**.
-
-- Review our [Legal Safe Harbor Policy](LEGAL_SAFE_HARBOR.md) for statutory safe harbor provisions under the US CFAA, UK Computer Misuse Act, and Indian IT Act.
-- Vulnerabilities within CyberGuard itself should be submitted privately via [GitHub Security Advisories](https://github.com/yusufjohn-shaik/CYBER-GUARD/security/advisories) in accordance with our [Security Policy](SECURITY.md).
+- Review our [Legal Safe Harbor Agreement](LEGAL_SAFE_HARBOR.md) covering safe-harbor protections under the US CFAA, UK Computer Misuse Act, and Indian IT Act.
+- Vulnerabilities within CyberGuard should be reported privately via [GitHub Security Advisories](https://github.com/yusufjohn-shaik/CYBER-GUARD/security/advisories) as detailed in our [Security Policy](SECURITY.md).
 
 ---
 
