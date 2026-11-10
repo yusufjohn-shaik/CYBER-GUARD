@@ -1,90 +1,138 @@
-# 🎬 CyberGuard: Deep Video Explanation & Architecture Walkthrough
+# 🎬 CyberGuard: Masterclass Technical Video Explainer & Architecture Guide
 
-This document serves as the complete technical companion to the high-definition video explainer: **`CYBER_GUARD_EXPLAINER.mp4`** (1080p Full HD, 60fps audio/subtitles).
-
----
-
-## 🧭 Executive Overview
-
-**Video File Location:**
-- Desktop: [`/home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4)
-- Repository Media: [`docs/media/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/CYBER-GUARD/docs/media/CYBER_GUARD_EXPLAINER.mp4)
-- **Total Duration:** 3 minutes 31 seconds (211 seconds)
-- **Audio Voice:** Broadcast-grade Microsoft Christopher Neural narration
-- **Video Standard:** 1080p Full HD (1920x1080, H.264 / AAC) with burned-in high-contrast subtitles
+This document is the comprehensive technical companion to **`CYBER_GUARD_EXPLAINER_V2.mp4`** (1080p Full HD, 60fps audio/subtitles), providing the complete transcript, platform compatibility matrix, tech stack breakdown, and execution pipeline.
 
 ---
 
-## ⏱️ Video Scene-by-Scene Breakdown
+## 🧭 Executive Video Overview
+
+- **Desktop File:** [`/home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4)
+- **Repository Media:** [`docs/media/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/CYBER-GUARD/docs/media/CYBER_GUARD_EXPLAINER.mp4)
+- **Resolution:** 1080p Full HD (1920 × 1080, H.264 / AAC)
+- **Visual Design:** Zero-overflow pixel-perfect glassmorphic UI cards, dynamic typography wrapping, embedded 4K attack graphs, AST code windows.
+- **Narration:** Broadcast-grade Microsoft Christopher Neural voiceover.
+- **Subtitles:** High-contrast burned-in subtitles synchronized to every spoken sentence.
+
+---
+
+## ⏱️ Master Timeline & Scene Breakdown
 
 ```
-00:00 ── Scene 1: The Broken State of Modern Security (Alert Fatigue Crisis)
-00:28 ── Scene 2: Introducing CyberGuard & The Core Vision
-00:52 ── Scene 3: Deep Native Vulnerability Discovery (Taint & API Security)
-01:25 ── Scene 4: The Tri-Factor Engine & Reachability (Noise Elimination)
-02:02 ── Scene 5: The In-Memory Attack Path Graph (DAG Exploit Chains)
-02:27 ── Scene 6: Autonomous AST Remediation & MCP AI Agent Skill
-03:04 ── Scene 7: Enterprise Clean-Room Governance & Open Source Mission
+00:00 ── Scene 1: The Broken State of Modern Security (The 70%+ Noise Crisis)
+00:36 ── Scene 2: Introducing CyberGuard: Purpose-Built Intelligence (Vision)
+01:08 ── Scene 3: Universal Target Platform Coverage (Every Modern Stack Supported)
+01:54 ── Scene 4: The Internal CyberGuard Tech Stack (Architecture Under the Hood)
+02:36 ── Scene 5: How It Works: The 5-Stage Deterministic Execution Pipeline
+03:20 ── Scene 6: Deep Semantic Taint Tracking, API Auditing & Noise Elimination
+04:01 ── Scene 7: In-Memory Attack Path Graph (DAG) & Autonomous AST Remediation
+04:40 ── Scene 8: Enterprise Clean-Room Governance & The Global Open-Source Launch
 ```
 
 ---
 
-### Scene 1: The Problem: Broken Application Security (0:00 - 0:28)
-- **Visuals:** Modern 2026 stack (Next.js, FastAPI, K8s, GenAI) contrasted against legacy scanner sprawl.
-- **Key Insight:** Running 10+ disconnected scanners produces over 70% false positive rates, burying genuine critical risks under thousands of uncontextualized alerts.
-- **Narrated Script:**
-  > *"Modern software engineering is moving faster than ever. Engineering teams deploy microservices, Next.js web applications, Kubernetes clusters, and AI-powered pipelines. But traditional cybersecurity tools are broken. Teams run ten disconnected scanners, drowning developers in thousands of siloed alerts with false positive rates over seventy percent. Real critical vulnerabilities remain buried in the noise."*
+## 🌐 Supported Target Platforms
+
+CyberGuard is purpose-built to discover vulnerabilities in modern engineering stacks:
+
+| Category | Supported Technologies & Stacks | What CyberGuard Detects |
+| :--- | :--- | :--- |
+| **Web & Backend** | Next.js 15, React 19, Node.js, Python (FastAPI, Django, Flask), Go (Fiber, Gin, Chi), Rust (Axum, Actix), Java (Spring Boot 3) | SSR taint, prototype pollution, cross-site scripting (XSS), SQL injection, unescaped SSRF webhooks, memory leaks, goroutine races. |
+| **APIs & Protocols** | REST (OpenAPI 3.0), GraphQL, gRPC / Protocol Buffers, WebSockets, Kafka message streams | OWASP API Top 10: Broken Object Level Authorization (BOLA), BFLA, Mass Assignment, GraphQL query depth exhaustion, schema leaks. |
+| **Cloud & Infra** | AWS, Google Cloud, Microsoft Azure, Kubernetes, Helm, Docker / OCI containers, Terraform, CloudFormation | IAM privilege escalation, wildcard policies (`s3:*`), public storage buckets, hostPath pod escapes, setuid root image layers, IaC drift. |
+| **GenAI & LLMs** | LangChain, LlamaIndex, OpenAI SDK, Vector DBs (Pinecone, Milvus, Qdrant) | OWASP LLM Top 10: Prompt Injection, Insecure Output Handling, Vector DB tenant cross-contamination, excessive AI tool agency. |
+| **Mobile & OS** | Android (APK & AAB), iOS (IPA), Linux, macOS, Windows | Insecure intent filters, exported activities, hardcoded secrets in DEX/bitcode, insecure keychain storage. |
 
 ---
 
-### Scene 2: Introducing CyberGuard: Next-Gen Platform (0:28 - 0:52)
-- **Visuals:** High-tech CyberGuard command center interface (`cyberguard_hero.jpg`), single static Go binary specifications, and the 5 core differentiators.
-- **Key Insight:** CyberGuard is not a commodity tool aggregator—it is a purpose-built vulnerability intelligence engine designed for modern application architectures.
-- **Narrated Script:**
-  > *"Enter CyberGuard. CyberGuard is the next-generation autonomous vulnerability intelligence and remediation platform. Built in high-performance Go as a single static binary, CyberGuard is not a commodity tool aggregator. It is a purpose-built security engine designed to detect, prioritize, and automatically remediate vulnerabilities across modern software architectures."*
+## 🛠️ The Internal CyberGuard Tech Stack
+
+CyberGuard's architecture is engineered for extreme performance, clean-room legal compliance, and zero dependencies:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        CYBERGUARD CLI & TUI INTERFACE                  │
+│   - Go 1.22+ compiled static binary (Zero CGO dependency)              │
+│   - spf13/cobra (Unified CLI grammar: scan, audit, trace, fix, mcp)    │
+│   - spf13/viper (Hierarchical config: flags, env vars, .cyberguard.yaml│
+│   - charmbracelet/bubbletea & lipgloss (Terminal UI dashboard)         │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│             CORE DATA BUS, GRAPH & IN-MEMORY CACHE                     │
+│   - OASIS SARIF v2.1.0 & OCSF Universal Data Schema                    │
+│   - goccy/go-json (Ultra-high throughput streaming serialization)      │
+│   - modernc.org/sqlite (Pure-Go embedded cache, zero CGO bindings)     │
+│   - gonum.org/v1/gonum/graph (In-memory Directed Acyclic Graph engine) │
+│   - Live EPSS (Exploit Prediction Scoring System) threat intelligence  │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│         AUTONOMOUS AST REMEDIATION & MODEL CONTEXT PROTOCOL (MCP)      │
+│   - Tree-sitter AST syntax parsers (Go, TS, Python, Java, Rust)        │
+│   - Python 3.11+ AST patch engine (Surgical, syntax-preserving fixes)  │
+│   - Automated Unit Test Synthesizer (Generates regression test suites) │
+│   - Anthropic Model Context Protocol (MCP) JSON-RPC server             │
+│   - Linux Foundation DCO (Developer Certificate of Origin v1.1)        │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-### Scene 3: Deep Native Vulnerability Discovery (0:52 - 1:25)
-- **Visuals:** 3-column architecture:
-  1. Semantic Taint Tracking (Input Sources ➔ Sanitizers ➔ Dangerous Sinks).
-  2. OWASP API Top 10 (BOLA, BFLA, Mass Assignment, GraphQL depth).
-  3. OWASP Top 10 for LLMs (Prompt Injection, Insecure Output Handling, Vector DB leaks).
-- **Key Insight:** Evaluates real data flows and API authorization boundaries that surface-level regex scanners miss completely.
-- **Narrated Script:**
-  > *"How does CyberGuard discover flaws that traditional scanners miss? First, CyberGuard performs deep native semantic taint analysis, tracing untrusted user inputs from modern API routes and WebSockets through sanitizers into critical sinks. Second, it natively audits the OWASP API Top 10, uncovering Broken Object Level Authorization, BOLA, and mass assignment. Third, it validates GenAI pipelines against prompt injection, vector database leakage, and insecure output handling."*
+## 🔄 The 5-Stage Deterministic Execution Pipeline
+
+```
+[Target Codebase / Cloud Config]
+              │
+              ▼
+    ┌───────────────────┐
+    │ 1. Discovery      │ ➔ Auto-infers frameworks, API routes, DBs, and cloud roles
+    └─────────┬─────────┘
+              ▼
+    ┌───────────────────┐
+    │ 2. Multi-Domain   │ ➔ Concurrent execution: AST taint, API fuzzing, IaC, secrets
+    └─────────┬─────────┘
+              ▼
+    ┌───────────────────┐
+    │ 3. Normalization  │ ➔ Unified into in-memory OASIS SARIF v2.1.0 data bus
+    └─────────┬─────────┘
+              ▼
+    ┌───────────────────┐
+    │ 4. Tri-Factor     │ ➔ Risk = CVSS × EPSS × Reachability (Kills >70% noise)
+    └─────────┬─────────┘
+              ▼
+    ┌───────────────────┐
+    │ 5. Attack Graph   │ ➔ In-memory DAG connects public ingress to cloud takeover
+    └─────────┬─────────┘
+              ▼
+[Surgical AST Code Patches + Automated Unit Tests + MCP AI Tool Feedback]
+```
 
 ---
 
-### Scene 4: Tri-Factor Prioritization Engine (1:25 - 2:02)
-- **Visuals:** The Tri-Factor Formula:
-  $$\text{Real Risk} = \text{CVSS (Severity)} \times \text{EPSS (Exploit Probability)} \times \text{Reachability Index}$$
-  Comparison showing 1,200 theoretical CVEs reduced to 8 actionable flaws.
-- **Key Insight:** Incorporating compiled call-graph reachability eliminates the 90% of dependencies that are imported but never invoked in memory.
-- **Narrated Script:**
-  > *"Every finding is normalized into an in-memory OASIS SARIF v2.1.0 data bus. But CyberGuard doesn't drown developers in alerts. It calculates true real-world risk using our Tri-Factor Engine. Risk equals CVSS severity, multiplied by EPSS active exploitation probability from live threat feeds, multiplied by compiled Call-Graph Reachability. If a vulnerable function in a third-party library is never actually invoked by your application's entry points, CyberGuard automatically deprioritizes it, eliminating seventy percent of security noise."*
+## 📜 Full Narration Script by Scene
 
----
+### Scene 1: The Broken State of Modern Security
+> *"Modern software engineering has fundamentally transformed. Development teams are shipping cloud-native microservices, Next.js web applications, Kubernetes clusters, and AI-powered pipelines multiple times a day. But application security tooling is profoundly broken. Engineering organizations run ten or more disconnected scanners, generating thousands of siloed alerts with false positive rates exceeding seventy percent. Developers waste weeks chasing phantom vulnerabilities, while genuine critical exploit paths remain buried in the noise."*
 
-### Scene 5: In-Memory Attack Path Graph (DAG) (2:02 - 2:27)
-- **Visuals:** Cinematic Attack Path Graph (`attack_path_graph.jpg`) illustrating a 5-step exploit sequence.
-- **Key Insight:** Vulnerabilities are evaluated as interconnected kill-chains:
-  $$\text{Public Route} \longrightarrow \text{API BOLA} \longrightarrow \text{Command Injection} \longrightarrow \text{Privileged Pod} \longrightarrow \text{Cloud IAM S3 Exfiltration}$$
-- **Narrated Script:**
-  > *"Rather than displaying isolated checklist items, CyberGuard constructs an in-memory Directed Acyclic Graph that correlates cross-layer exploit chains. It connects an external API entrypoint, to a vulnerable code sink, to a compromised container pod, to an overprivileged cloud IAM role. Security teams and developers see the exact kill-chain an adversary would execute to breach production."*
+### Scene 2: Introducing CyberGuard: Purpose-Built Intelligence
+> *"Enter CyberGuard: the next-generation autonomous vulnerability intelligence and remediation platform. CyberGuard is not a commodity tool aggregator or bash wrapper. It is a purpose-built, high-performance security product written in pure Go as a single static binary. CyberGuard unifies discovery across fifteen security domains, calculates true real-world risk, correlates multi-layer exploit paths, and automatically writes syntax-verified code patches and unit tests."*
 
----
+### Scene 3: Universal Target Platform Coverage
+> *"What platforms can you protect with CyberGuard? CyberGuard covers the modern technology landscape. For web and backend services, it natively analyzes Next.js, Node.js, Python FastAPI and Django, Go microservices, Rust, and Java Spring Boot. For API architectures, it audits REST, GraphQL, gRPC, and WebSockets. For infrastructure, it inspects multi-cloud AWS, Google Cloud, and Azure environments, Kubernetes manifests, Docker containers, and Terraform. And crucially, it protects modern GenAI applications built with LangChain, LlamaIndex, and Vector Databases."*
 
-### Scene 6: Autonomous AST Remediation & AI Agent (2:27 - 3:04)
-- **Visuals:** Side-by-side code diff window (Red: raw SQL concatenation vs. Green: Tree-sitter parameterized patch) + Automated unit test pass (`PASS: Test_SQLInjection_Blocked`) + Model Context Protocol (MCP) badge.
-- **Key Insight:** Generating verified code patches and automatic regression tests transforms security from an alert generator into an autonomous solution.
-- **Narrated Script:**
-  > *"Detection without remediation is only half a product. CyberGuard features an autonomous remediation engine. Using Tree-sitter, it rewrites Abstract Syntax Trees with surgical precision, generating production-ready code patches that convert raw queries to parameterized statements and inject authentication wrappers. Crucially, CyberGuard automatically synthesizes unit tests to mathematically prove the vulnerability is eliminated without breaking business logic. Native Model Context Protocol support allows AI agents like Claude Code to pair-program security directly into your development workflow."*
+### Scene 4: The Internal CyberGuard Tech Stack
+> *"What powers CyberGuard under the hood? At its foundation is Go 1.22+, utilizing Cobra for unified command grammar, Viper for hierarchical configuration, and a subprocess supervisor ensuring safe clean-room isolation. Findings flow into an in-memory OASIS SARIF v2.1.0 data bus serialized by high-speed JSON and a pure-Go SQLite cache. For attack path modeling, it runs an in-memory Directed Acyclic Graph engine via gonum. AST rewriting is powered by multi-language Tree-sitter parsers, and autonomous AI pair-programming is driven by the Anthropic Model Context Protocol."*
 
----
+### Scene 5: How It Works: The 5-Stage Execution Pipeline
+> *"How does CyberGuard work in practice? The execution pipeline operates in five deterministic stages. Stage one: Target and Architecture Discovery automatically infers your frameworks, routes, databases, and cloud configs. Stage two: Parallel Multi-Domain Scanning executes targeted static, dynamic, secret, and container analysis. Stage three: SARIF Normalization unifies all findings into a deduplicated data model. Stage four: Tri-Factor Prioritization filters out unreachable noise. Stage five: Attack Path Correlation maps multi-hop exploit chains into actionable kill-chains."*
 
-### Scene 7: Open-Source Governance & Call to Action (3:04 - 3:31)
-- **Visuals:** Apache 2.0, OpenSSF Scorecard 10/10, Linux Foundation DCO sign-off, and the GitHub repository card (`https://github.com/yusufjohn-shaik/CYBER-GUARD`).
-- **Key Insight:** Category-defining open-source projects require airtight governance from Day 1 to ensure enterprise adoption and contributor safety.
-- **Narrated Script:**
-  > *"CyberGuard is built with an enterprise-grade clean-room architecture under the Apache License 2.0, protected by international legal safe harbors and verified OpenSSF Scorecard standards. We invite security researchers, developers, and engineers worldwide to join us in building the world's number one open-source cybersecurity platform. Star the repository on GitHub, contribute code, and secure your modern stack with CyberGuard."*
+### Scene 6: Deep Taint Tracking, API Auditing & Reachability
+> *"CyberGuard detects flaws that traditional scanners miss. Using deep semantic taint tracking, it traces untrusted user inputs from API routes through complex sanitizers to dangerous execution sinks. For APIs, it actively probes the OWASP API Top 10, uncovering Broken Object Level Authorization, BOLA, and mass assignment. And to kill alert fatigue, our Tri-Factor Engine calculates risk by multiplying CVSS severity, live EPSS threat intel, and compiled call-graph reachability. If vulnerable third-party code is never invoked in memory, it is automatically deprioritized."*
+
+### Scene 7: In-Memory Attack Path Graph & Autonomous AST Remediation
+> *"Rather than displaying isolated alerts, CyberGuard builds an in-memory Directed Acyclic Graph connecting an external API entrypoint, to a code injection sink, to a compromised pod, to an overprivileged cloud IAM role, revealing the exact path to data exfiltration. Then, our autonomous remediation engine takes over. Using Tree-sitter, CyberGuard surgically rewrites Abstract Syntax Trees with parameterized queries and auth middleware, auto-synthesizing unit tests to prove the flaw is fixed with zero regressions. AI coding agents like Claude Code can run this entire cycle via MCP."*
+
+### Scene 8: Enterprise Clean-Room Governance & Open Source Mission
+> *"CyberGuard is built with an enterprise-grade clean-room architecture under the Apache License 2.0. Copyleft dependencies are strictly isolated via subprocess pipes, never vendored into core. Every commit is protected by the Linux Foundation Developer Certificate of Origin, international statutory safe harbors, and an automated OpenSSF Scorecard ten out of ten security rating. We invite developers and security researchers worldwide to star the repository on GitHub, contribute code, and build the future of application security with CyberGuard."*
