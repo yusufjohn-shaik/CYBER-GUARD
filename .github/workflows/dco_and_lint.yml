@@ -1,0 +1,74 @@
+name: DCO & Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  dco-check:
+    name: Check Developer Certificate of Origin (DCO)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate DCO Sign-off
+        run: |
+          echo "Verifying all commits contain 'Signed-off-by:'..."
+          FAILED=0
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+            COMMITS=$(git log --no-merges --format="%H" "$BASE_SHA..$HEAD_SHA")
+          else
+            COMMITS=$(git log -n 10 --no-merges --format="%H")
+          fi
+
+          for commit in $COMMITS; do
+            SIG=$(git log -n 1 --format="%B" "$commit" | grep -E "^Signed-off-by: .+ <.+@.+>$" || true)
+            if [ -z "$SIG" ]; then
+              echo "❌ Commit $commit is missing valid 'Signed-off-by:' sign-off!"
+              echo "   Run: git commit --amend -s"
+              FAILED=1
+            else
+              echo "✅ Commit $commit properly signed: $SIG"
+            fi
+          done
+
+          if [ $FAILED -ne 0 ]; then
+            echo "ERROR: DCO check failed. Every commit must be signed with 'git commit -s'."
+            exit 1
+          fi
+
+  license-header-check:
+    name: Verify License Headers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Verify Apache 2.0 Header on Source Files
+        run: |
+          echo "Scanning for missing Apache 2.0 license headers in Go and Python files..."
+          MISSING=0
+          for file in $(git ls-files '*.go' '*.py'); do
+            if ! grep -q "Licensed under the Apache License, Version 2.0" "$file"; then
+              echo "⚠️ Missing Apache 2.0 header in: $file"
+              MISSING=1
+            fi
+          done
+
+          if [ $MISSING -ne 0 ]; then
+            echo "Warning: Some source files do not include the standard Apache 2.0 notice header."
+            # Set to non-fatal for initial scaffolding, enforceable as code expands
+          else
+            echo "✅ All source files include standard license header."
+          fi

@@ -1,0 +1,62 @@
+name: 🔌 Tool Integration Proposal
+description: Propose integrating a new open-source security tool into CyberGuard
+labels: ["kind/tool-integration", "status/triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        CyberGuard aims to be the universal orchestrator for best-of-breed open-source security tools.
+        Please check our [Tool Analysis Guidelines](../../docs/modules/MODULE_01.md) before submitting.
+  - type: input
+    id: tool_name
+    attributes:
+      label: Tool Name & Repository URL
+      description: What is the name and GitHub/GitLab URL of the tool?
+      placeholder: "e.g., Checkov (https://github.com/bridgecrewio/checkov)"
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Target Security Domain
+      options:
+        - "SAST (Static Application Security Testing)"
+        - "SCA (Software Composition Analysis / SBOM)"
+        - "Secret Detection & Credential Leaks"
+        - "Container & Image Security"
+        - "Network & Port Auditing"
+        - "DAST (Dynamic Web Application Security)"
+        - "API Security & Schema Fuzzing"
+        - "Cloud Security (CSPM / CIEM)"
+        - "Infrastructure as Code (IaC) Security"
+        - "CI/CD Pipeline Security & SLSA"
+        - "Mobile App Security (Android / iOS)"
+        - "Threat Modeling & ATT&CK Mapping"
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: Upstream License
+      description: "What is the upstream tool's license? (e.g. Apache 2.0, MIT, BSD-3, GPLv3, AGPLv3)"
+      placeholder: "e.g., Apache 2.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: output_format
+    attributes:
+      label: Native Output Format
+      description: "Does the tool natively export SARIF, JSON, or only plain text?"
+      options:
+        - "SARIF v2.1.0 (Directly ingestible)"
+        - "Structured JSON (Parser adapter required)"
+        - "Plain text / Regex parsing required"
+    validations:
+      required: true
+  - type: textarea
+    id: justification
+    attributes:
+      label: Value & Comparison
+      description: Why should this tool be integrated? How does it complement or outperform existing integrated tools?
+    validations:
+      required: true

@@ -1,0 +1,73 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve CyberGuard
+labels: ["kind/bug", "status/triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue!
+        **Security Vulnerabilities:** If this bug poses a security risk to CyberGuard or its users, please do NOT file a public issue. Follow our [Security Policy](../../SECURITY.md) instead.
+  - type: input
+    id: version
+    attributes:
+      label: CyberGuard Version
+      description: What version of CyberGuard are you running? (Run `cyberguard version`)
+      placeholder: e.g., v0.1.0-alpha (commit 3a9f1b)
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Affected Module / Domain
+      description: Which security domain or engine module is affected?
+      options:
+        - "Module 01: Governance & Legal"
+        - "Module 02: Core CLI & Microkernel"
+        - "Module 03: Data Bus (SARIF/OCSF)"
+        - "Module 04: SAST Engine"
+        - "Module 05: SCA & Supply Chain"
+        - "Module 06: Secret Detection"
+        - "Module 07: Container & OCI Security"
+        - "Module 08: Network & Port Auditing"
+        - "Module 09: DAST & Web App Security"
+        - "Module 10: API Security & Spec Fuzzing"
+        - "Module 11: Cloud Security (CSPM/CIEM)"
+        - "Module 12: IaC Security & Drift"
+        - "Module 13: CI/CD Pipeline & SLSA"
+        - "Module 14: Mobile Security (SAST/DAST)"
+        - "Module 15: Threat Modeling & ATT&CK"
+        - "Module 16: Autonomous MCP AI Agent"
+        - "Module 17: Attack Path Engine (DAG)"
+        - "Module 18: Tri-Factor Prioritization"
+        - "Module 19: Auto-Remediation Engine"
+        - "Module 20: TUI Dashboard & Reports"
+        - "Module 21: Release & Ecosystem"
+        - "Other / Core Infrastructure"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Describe how to reproduce the problem.
+      placeholder: |
+        1. Run `cyberguard scan --profile fast target/`
+        2. Inspect output
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior / Output Logs
+      description: What actually happened? Paste terminal output, error logs, or stack traces here.
+      render: shell
+    validations:
+      required: true

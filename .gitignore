@@ -1,0 +1,69 @@
+# Binaries and build artifacts
+bin/
+dist/
+cyberguard
+cyberguard-darwin-*
+cyberguard-linux-*
+cyberguard-windows-*.exe
+
+# Go test and coverage output
+*.test
+*.out
+coverage.html
+coverage.txt
+coverage.out
+
+# Go dependency cache
+vendor/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+var/
+sdist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# CyberGuard local caches & scan outputs
+.cyberguard/
+*.sarif
+*.sarif.json
+report_output/
+scan_results/
+proof_of_authorization.sig
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets & Environment variables
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Temporary & Scratch files
+tmp/
+temp/
+scratch/
