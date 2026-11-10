@@ -19,25 +19,17 @@ We provide security patches, updates, and vulnerability disclosures for the foll
 
 **Please DO NOT report security vulnerabilities through public GitHub issues, discussions, or social media.**
 
-### Method A: GitHub Private Vulnerability Reporting (Preferred)
-Submit a report privately via the CyberGuard GitHub repository:
-1. Navigate to the **Security** tab of the CyberGuard repository.
+### Method A: GitHub Private Vulnerability Reporting (Recommended)
+Submit a report privately via GitHub:
+1. Navigate to the **Security** tab of the [`yusufjohn-shaik/CYBER-GUARD`](https://github.com/yusufjohn-shaik/CYBER-GUARD) repository.
 2. Select **Advisories** -> **Report a vulnerability**.
 3. Fill in the advisory template with reproducible steps, proof-of-concept (PoC), and impact assessment.
 
-### Method B: Encrypted Email
-If GitHub Private Reporting is unavailable, send an encrypted email to:
-- **Email:** `security@cyberguard.dev`
+### Method B: Direct Maintainer Email
+If GitHub Private Reporting is unavailable, send an email to the project maintainer:
+- **Maintainer:** Shaik Yusuf John
+- **Email:** `yusufjohn252007@gmail.com`
 - **Subject:** `[SECURITY REPORT] <Short summary of vulnerability>`
-
-Please encrypt your report using our PGP Public Key:
-```text
------BEGIN PGP PUBLIC KEY BLOCK-----
-Comment: CyberGuard Security Team <security@cyberguard.dev>
-
-mQENBF+Lgq8BCADQv8wz2v6Q6... [Key fingerprint: 4F2A 9D97 3761 4AE0 4F2A]
------END PGP PUBLIC KEY BLOCK-----
-```
 
 ---
 

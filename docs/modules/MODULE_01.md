@@ -40,7 +40,7 @@ Module 01 solves these challenges permanently through a **Clean-Room Legal Fortr
 - Defines the prerequisite for **Module 08's Cryptographic Proof-of-Authorization Engine**, requiring `.security-scope.yaml` verification before initiating active network probing.
 
 ### 2.3. Enterprise Coordinated Vulnerability Disclosure (`SECURITY.md`)
-- Provides private GitHub advisory submission and PGP-encrypted reporting (`security@cyberguard.dev`).
+- Provides private GitHub advisory submission and maintainer email reporting (`yusufjohn252007@gmail.com`).
 - Commits to clear Service Level Agreements (SLAs):
   - **24 Hours:** Acknowledgment of vulnerability report.
   - **7 Days:** Reproduction, CVSS scoring, and triage.
