@@ -6,8 +6,7 @@ This document is the comprehensive technical companion to **`CYBER_GUARD_EXPLAIN
 
 ## 🧭 Executive Video Overview
 
-- **Desktop File:** [`/home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4)
-- **Repository Media:** [`docs/media/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/CYBER-GUARD/docs/media/CYBER_GUARD_EXPLAINER.mp4)
+- **Local Video Location:** [`/home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4`](file:///home/john/Desktop/CYBER_GUARD_EXPLAINER.mp4) (Generated on Desktop; video files are excluded from Git to prevent repo bloat)
 - **Resolution:** 1080p Full HD (1920 × 1080, H.264 / AAC)
 - **Visual Design:** Zero-overflow pixel-perfect glassmorphic UI cards, dynamic typography wrapping, embedded 4K attack graphs, AST code windows.
 - **Narration:** Broadcast-grade Microsoft Christopher Neural voiceover.

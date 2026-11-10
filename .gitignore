@@ -63,6 +63,13 @@ Thumbs.db
 *.pfx
 *.p12
 
+# Large media files (videos)
+*.mp4
+*.mov
+*.avi
+*.webm
+*.mkv
+
 # Temporary & Scratch files
 tmp/
 temp/
