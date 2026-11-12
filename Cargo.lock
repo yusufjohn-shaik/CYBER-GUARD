@@ -233,7 +233,7 @@ dependencies = [
 
 [[package]]
 name = "cyberguard-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -248,7 +248,7 @@ dependencies = [
 
 [[package]]
 name = "cyberguard-core"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "chrono",
  "figment",
@@ -262,7 +262,7 @@ dependencies = [
 
 [[package]]
 name = "cyberguard-proc"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "cyberguard-core",
  "nix",

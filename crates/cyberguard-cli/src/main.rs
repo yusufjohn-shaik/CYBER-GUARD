@@ -9,7 +9,7 @@ use tracing_subscriber::FmtSubscriber;
 #[derive(Parser, Debug)]
 #[command(
     name = "cyberguard",
-    version = "0.2.0",
+    version = "0.3.0",
     about = "Autonomous Vulnerability Intelligence & Remediation Platform",
     long_about = "CyberGuard is an uncompromising, next-generation open-source vulnerability intelligence platform\nbuilt in Rust. It discovers real flaws in modern software, correlates attack path graphs (DAG),\nand autonomously synthesizes AST-verified code fixes."
 )]
@@ -133,41 +133,39 @@ async fn main() -> anyhow::Result<()> {
         .unwrap_or_else(|_| CyberguardConfig::default());
 
     match cli.command {
-        Some(Commands::Scan(args)) => {
-            println!("🛡️  CyberGuard Security Engine v0.2.0");
-            println!("Scanning target: {}", args.path.display());
-            println!("Workspace: {}", config.general.workspace_dir.display());
-
-            match args.format {
-                OutputFormat::Sarif => {
-                    let log = SarifLog::new("CyberGuard", "0.2.0");
-                    println!("{}", serde_json::to_string_pretty(&log)?);
-                }
-                OutputFormat::Json => {
-                    let log = SarifLog::new("CyberGuard", "0.2.0");
-                    println!("{}", serde_json::to_string_pretty(&log)?);
-                }
-                OutputFormat::Terminal => {
-                    println!("\n[+] Initializing static analysis and AST parser...");
-                    println!("[+] Initializing subprocess supervisor (process-group isolated)...");
-                    // Quick self-check of supervisor
-                    let proc_opts = ProcessOptions::new(
-                        "git",
-                        vec![
-                            "rev-parse".to_string(),
-                            "--short".to_string(),
-                            "HEAD".to_string(),
-                        ],
-                    );
-                    if let Ok(out) = execute_process(proc_opts).await {
-                        if out.is_success() {
-                            println!("[+] Target repository git revision: {}", out.stdout.trim());
-                        }
-                    }
-                    println!("[✓] Scan complete. Zero critical vulnerabilities found.");
-                }
+        Some(Commands::Scan(args)) => match args.format {
+            OutputFormat::Sarif => {
+                let log = SarifLog::new("CyberGuard", "0.3.0");
+                println!("{}", serde_json::to_string_pretty(&log)?);
             }
-        }
+            OutputFormat::Json => {
+                let log = SarifLog::new("CyberGuard", "0.3.0");
+                println!("{}", serde_json::to_string_pretty(&log)?);
+            }
+            OutputFormat::Terminal => {
+                println!("🛡️  CyberGuard Security Engine v0.3.0");
+                println!("Scanning target: {}", args.path.display());
+                println!("Workspace: {}", config.general.workspace_dir.display());
+
+                println!("\n[+] Initializing static analysis and AST parser...");
+                println!("[+] Initializing subprocess supervisor (process-group isolated)...");
+                // Quick self-check of supervisor
+                let proc_opts = ProcessOptions::new(
+                    "git",
+                    vec![
+                        "rev-parse".to_string(),
+                        "--short".to_string(),
+                        "HEAD".to_string(),
+                    ],
+                );
+                if let Ok(out) = execute_process(proc_opts).await {
+                    if out.is_success() {
+                        println!("[+] Target repository git revision: {}", out.stdout.trim());
+                    }
+                }
+                println!("[✓] Scan complete. Zero critical vulnerabilities found.");
+            }
+        },
         Some(Commands::Audit(args)) => {
             println!("🔍 Auditing target: {}", args.target);
             info!("Audit completed for target {}", args.target);

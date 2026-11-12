@@ -3,7 +3,7 @@ use std::path::PathBuf;
 
 // We will test Clap derive command parsing directly
 #[derive(Parser, Debug)]
-#[command(name = "cyberguard", version = "0.2.0")]
+#[command(name = "cyberguard", version = "0.3.0")]
 struct Cli {
     #[arg(global = true, short, long)]
     config: Option<PathBuf>,
