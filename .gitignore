@@ -79,3 +79,13 @@ Thumbs.db
 tmp/
 temp/
 scratch/
+experiments/
+*.log
+test_results/
+output/
+
+# Benchmarking & Profiling
+criterion/
+*.perf
+flamegraph.svg
+perf.data*
