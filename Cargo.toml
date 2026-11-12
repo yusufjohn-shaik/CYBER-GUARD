@@ -1,0 +1,51 @@
+[workspace]
+members = [
+    "crates/cyberguard-core",
+    "crates/cyberguard-proc",
+    "crates/cyberguard-cli",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.2.0"
+edition = "2021"
+authors = ["Shaik Yusuf John <yusufjohn252007@gmail.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/yusufjohn-shaik/CYBER-GUARD"
+homepage = "https://github.com/yusufjohn-shaik/CYBER-GUARD"
+documentation = "https://github.com/yusufjohn-shaik/CYBER-GUARD/tree/main/docs"
+readme = "README.md"
+keywords = ["security", "vulnerability", "scanner", "ast", "remediation"]
+categories = ["development-tools", "command-line-utilities"]
+
+[workspace.dependencies]
+# CLI & Terminal
+clap = { version = "4.5", features = ["derive", "env"] }
+
+# Async runtime
+tokio = { version = "1.40", features = ["full"] }
+
+# Configuration
+figment = { version = "0.10", features = ["yaml", "env"] }
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Error Handling
+thiserror = "2.0"
+anyhow = "1.0"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Process & Signals
+nix = { version = "0.29", features = ["process", "signal"] }
+
+# Time & Duration
+chrono = { version = "0.4", features = ["serde"] }
+
+# Internal workspace crates
+cyberguard-core = { path = "crates/cyberguard-core" }
+cyberguard-proc = { path = "crates/cyberguard-proc" }

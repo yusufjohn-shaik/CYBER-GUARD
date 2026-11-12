@@ -2,12 +2,14 @@
 
 CyberGuard is being built modularly into the world's #1 open-source cybersecurity platform. This document tracks strategic project milestones and daily module deliveries.
 
+**Core Language:** Rust 🦀 | **Async Runtime:** Tokio | **Architecture:** Cargo Workspace with modular crates
+
 ---
 
 ## 🏛️ Phase 1: Core Foundation & Microkernel (Days 1–7)
 - [x] **Module 01: Legal & Open Source Governance** (Apache 2.0, Safe Harbor, DCO, OpenSSF Scorecard)
-- [ ] **Module 02: Core Go CLI & Microkernel** (Cobra CLI tree, Viper config loader, Subprocess supervisor)
-- [ ] **Module 03: Universal Data Bus** (OASIS SARIF v2.1.0 & OCSF engine)
+- [x] **Module 02: Core Rust CLI & Microkernel** (clap CLI tree, figment config loader, tokio subprocess supervisor)
+- [ ] **Module 03: Universal Data Bus** (OASIS SARIF v2.1.0 & OCSF engine with serde typed models)
 - [ ] **Module 04: SAST Engine** (Static Analysis orchestrator for Semgrep, CodeQL, Gosec, Bandit)
 - [ ] **Module 05: SCA & Supply Chain** (Trivy, Grype, Syft SBOM generation, OSV-Scanner)
 - [ ] **Module 06: Secret Detection Engine** (Gitleaks, TruffleHog subprocess, entropy validator)
@@ -29,10 +31,10 @@ CyberGuard is being built modularly into the world's #1 open-source cybersecurit
 
 ## 🧠 Phase 3: AI Agents, Graph & Autonomous Remediation (Days 16–21)
 - [ ] **Module 16: Autonomous MCP AI Agent** (Anthropic Model Context Protocol server, Claude Code skill)
-- [ ] **Module 17: Attack Path Engine (DAG)** (In-memory directed acyclic graph mapping exploit chains)
+- [ ] **Module 17: Attack Path Engine (DAG)** (petgraph in-memory directed acyclic graph mapping exploit chains)
 - [ ] **Module 18: Tri-Factor Prioritization** (CVSS + EPSS + Reachability math engine)
 - [ ] **Module 19: Auto-Remediation Engine** (Tree-sitter AST syntax patcher & test generator)
-- [ ] **Module 20: TUI Dashboard & Reports** (Bubbletea terminal UI, executive PDF/HTML export)
+- [ ] **Module 20: TUI Dashboard & Reports** (ratatui terminal UI, executive PDF/HTML export)
 - [ ] **Module 21: Production Release & Ecosystem** (Multi-arch binaries, Homebrew, Docker Hub, launch)
 
 ---

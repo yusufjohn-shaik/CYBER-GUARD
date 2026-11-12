@@ -6,6 +6,11 @@ cyberguard-darwin-*
 cyberguard-linux-*
 cyberguard-windows-*.exe
 
+# Rust build artifacts
+target/
+**/*.rs.bk
+*.pdb
+
 # Go test and coverage output
 *.test
 *.out

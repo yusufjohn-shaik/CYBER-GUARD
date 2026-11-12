@@ -4,7 +4,7 @@
 ### Next-Generation Autonomous Vulnerability Intelligence & Remediation Platform
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
-[![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8.svg?style=flat-square&logo=go)](https://golang.org)
+[![Rust Version](https://img.shields.io/badge/Rust-1.85%2B%20%2F%202024%20Edition-orange.svg?style=flat-square&logo=rust)](https://www.rust-lang.org)
 [![Python Version](https://img.shields.io/badge/Python-3.11+-3776AB.svg?style=flat-square&logo=python)](https://python.org)
 [![SARIF Standard](https://img.shields.io/badge/Standard-SARIF%20v2.1.0-orange.svg?style=flat-square)](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
 [![AI Agent Ready](https://img.shields.io/badge/AI%20Protocol-Model%20Context%20Protocol%20(MCP)-8A2BE2.svg?style=flat-square)](https://modelcontextprotocol.io)
@@ -38,7 +38,7 @@ Most security tools available today were built for the software architectures of
 - **Deep Semantic Taint & Reachability Analysis:** Traces user input from modern API endpoints through call graphs to critical sinks (SQL, Command Injection, SSRF, Deserialization, LLM Prompt Injection).
 - **In-Memory Attack Path Graph (DAG):** Correlates multi-layer findings into coherent exploit paths. A vulnerable dependency is only flagged as critical if CyberGuard mathematically proves it is **reachable and exploitable** through an exposed route.
 - **Autonomous, Syntax-Preserving Remediation:** Don't just report vulnerabilities—fix them. CyberGuard generates syntax-verified AST code patches and automated regression tests.
-- **First-Class AI Agent Skill:** Operates standalone via a blazing-fast Go binary, or natively inside AI coding agents (Claude Code, Antigravity, Cursor) via the Anthropic Model Context Protocol (MCP).
+- **First-Class AI Agent Skill:** Operates standalone via a blazing-fast, zero-overhead Rust binary, or natively inside AI coding agents (Claude Code, Antigravity, Cursor) via the Anthropic Model Context Protocol (MCP).
 
 ---
 
@@ -123,10 +123,13 @@ CyberGuard is designed from the ground up for modern application engineering:
 ### Installation (Preview)
 
 ```bash
-# Build from source using Go 1.22+
+# Build high-performance static binary from source using Cargo (Rust 1.85+)
 git clone https://github.com/yusufjohn-shaik/CYBER-GUARD.git
 cd CYBER-GUARD
-go build -o cyberguard cmd/cyberguard/main.go
+cargo build --release --workspace
+
+# The binary is located at ./target/release/cyberguard
+./target/release/cyberguard --version
 ```
 
 ### Essential Commands

@@ -11,7 +11,7 @@ Standard agile sprints can introduce severe architectural debt or security vulne
 
 Our hybrid model combines the **shipping velocity of Agile** with the **architectural fortress of the Spiral Model**:
 - **Agile Execution:** Daily time-boxed sprint increments, user-story driven development, rapid feature iteration, and functional binaries delivered daily.
-- **Spiral Risk Gates:** Every sprint begins with a mandatory 5-minute pre-implementation **Risk & Threat Gate** to eliminate copyleft contamination, subprocess command injection, memory leaks, or parser DoS vulnerabilities before code is merged.
+- **Spiral Risk Gates:** Every sprint begins with a mandatory 5-minute pre-implementation **Risk & Threat Gate** to eliminate copyleft contamination, subprocess command injection, memory-safety regressions, or parser DoS vulnerabilities before code is merged.
 
 ---
 
@@ -28,10 +28,10 @@ To build an enterprise-grade platform at maximum velocity, the engineering team 
           ┌─────────────────────────┴─────────────────────────┐
           ▼                                                   ▼
 ┌───────────────────────────────────┐       ┌───────────────────────────────────┐
-│     RISK & SECURITY AUDITOR       │       │    CORE GO SYSTEMS ENGINEER       │
-│  - Spiral risk analysis gate      │       │  - Go 1.22+ pure compiled core    │
-│  - Clean-room copyleft checks     │       │  - Cobra CLI, Viper configuration │
-│  - Threat modeling (CFAA/OWASP)   │       │  - Subprocess supervisor & DAG    │
+│     RISK & SECURITY AUDITOR       │       │   CORE RUST SYSTEMS ENGINEER      │
+│  - Spiral risk analysis gate      │       │  - Rust 1.99+ async/safe core     │
+│  - Clean-room copyleft checks     │       │  - clap CLI, figment config       │
+│  - Threat modeling (CFAA/OWASP)   │       │  - tokio subprocess supervisor    │
 └─────────────────┬─────────────────┘       └─────────────────┬─────────────────┘
                   │                                           │
                   └─────────────────────┬─────────────────────┘
@@ -42,7 +42,7 @@ To build an enterprise-grade platform at maximum velocity, the engineering team 
 │   AST & REMEDIATION SPECIALIST    │       │     QA & TEST AUTOMATION LEAD     │
 │  - Tree-sitter multi-language AST │       │  - Test-Driven Development (TDD)  │
 │  - Surgical syntax code patcher   │       │  - >= 80% coverage enforcement    │
-│  - Model Context Protocol (MCP)   │       │  - Race detection & OpenSSF gates │
+│  - Model Context Protocol (MCP)   │       │  - Miri & clippy gates            │
 └───────────────────────────────────┘       └───────────────────────────────────┘
 ```
 
@@ -52,9 +52,9 @@ To build an enterprise-grade platform at maximum velocity, the engineering team 
 | :--- | :--- | :--- |
 | **Lead Architect** | `parent-agent` | Defines sprint backlogs, reviews user stories, maintains roadmap milestones, and enforces clean git history. |
 | **Risk & Security Auditor** | `risk-auditor` | Evaluates threat models, ensures GPL/AGPL tools remain strictly isolated as external subprocesses, audits memory and timeout limits. |
-| **Core Go Systems Engineer** | `core-go-engineer` | Writes pure Go 1.22+ code (`modernc.org/sqlite`, `spf13/cobra`, `gonum/graph`), ensures zero CGO compilation dependencies. |
+| **Core Rust Systems Engineer** | `core-rust-engineer` | Writes safe, idiomatic Rust (`tokio`, `clap`, `petgraph`, `serde`), ensures zero `unsafe` blocks without audit comments, leverages Rust's ownership model for memory safety. |
 | **AST & Remediation Specialist**| `ast-remediation-specialist` | Implements Tree-sitter parsers, generates surgical code diffs, synthesizes automated regression unit tests, integrates MCP server. |
-| **QA & Verification Engineer** | `qa-verifier` | Enforces TDD, writes comprehensive unit/integration test suites (`*_test.go`), verifies `go test -race -cover` >= 80%, validates OpenSSF criteria. |
+| **QA & Verification Engineer** | `qa-verifier` | Enforces TDD, writes comprehensive unit/integration test suites, verifies `cargo test` >= 80% coverage via `cargo-tarpaulin`, runs `clippy` and `cargo deny` gates. |
 
 ---
 
@@ -69,10 +69,10 @@ Every daily module is executed through four synchronized phases:
  1. Spiral Risk Gate  ──► Threat model & clean-room copyleft verification
          │
          ▼
- 2. TDD Implementation ──► Core Go / Python engineering + AST integration
+ 2. TDD Implementation ──► Core Rust engineering + AST integration
          │
          ▼
- 3. QA & Benchmarking  ──► Race detection, test coverage >= 80%, latency check
+ 3. QA & Benchmarking  ──► clippy, test coverage >= 80%, criterion benchmarks
          │
          ▼
  4. Review & DCO Commit──► Clean git commit with Developer Certificate of Origin
@@ -80,13 +80,13 @@ Every daily module is executed through four synchronized phases:
 
 1. **Step 1: Spiral Risk Gate (Quadrant II):**
    - Identify edge cases, license boundaries, and potential vulnerability vectors in the planned feature.
-   - Example: *"Will wrapping this external scanner introduce a shell-injection vector? Solution: enforce tokenized `exec.Command` slices with timeout contexts."*
+   - Example: *"Will wrapping this external scanner introduce a shell-injection vector? Solution: enforce tokenized `tokio::process::Command` with timeout and process group isolation via `nix::unistd::setpgid`."*
 2. **Step 2: Agile TDD Implementation (Quadrant III):**
    - Write unit test stubs defining expected behavior.
-   - Implement clean-room Go/Python code fulfilling the interfaces.
+   - Implement clean-room Rust code fulfilling the trait interfaces.
 3. **Step 3: QA Verification & Benchmarking (Quadrant III):**
-   - Run `go test -v -race -covermode=atomic ./...`.
-   - Confirm zero memory leaks and test coverage exceeds 80%.
+   - Run `cargo test --workspace` and `cargo clippy --workspace -- -D warnings`.
+   - Confirm test coverage exceeds 80% via `cargo tarpaulin --workspace`.
 4. **Step 4: Review & DCO Commit (Quadrant IV):**
    - Sign off the commit (`git commit -s`).
    - Update module documentation in `docs/modules/` and check off roadmap milestones.
@@ -96,8 +96,8 @@ Every daily module is executed through four synchronized phases:
 ## 4. Definition of Done (DoD)
 
 A sprint or module is only declared **DONE** when:
-1. **Compiles Cleanly:** Zero build warnings or CGO runtime dependencies.
-2. **Passes Linter:** Code satisfies `golangci-lint` and `gofmt -s`.
-3. **Automated Tests:** Minimum **80% test coverage** with race detection enabled (`-race`).
-4. **No Copyleft Contamination:** Verified zero GPL/AGPL libraries statically linked or vendored.
+1. **Compiles Cleanly:** `cargo build --workspace` with zero warnings (`-D warnings`).
+2. **Passes Linter:** Code satisfies `cargo clippy --workspace -- -D warnings` and `cargo fmt --check`.
+3. **Automated Tests:** Minimum **80% test coverage** via `cargo tarpaulin --workspace`.
+4. **No Copyleft Contamination:** Verified zero GPL/AGPL crates via `cargo deny check licenses`.
 5. **Signed-off Commit:** Conforms to Linux Foundation DCO (`git commit -s`).

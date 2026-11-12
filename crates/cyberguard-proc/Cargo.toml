@@ -1,0 +1,17 @@
+[package]
+name = "cyberguard-proc"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Sandboxed subprocess supervisor, process-group isolation, and bounded stream engine for CyberGuard"
+
+[dependencies]
+cyberguard-core = { workspace = true }
+tokio = { workspace = true }
+nix = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
