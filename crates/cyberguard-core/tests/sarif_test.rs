@@ -1,7 +1,4 @@
-use cyberguard_core::sarif::{
-    ArtifactLocation, Location, Message, PhysicalLocation, Region, ReportingDescriptor, SarifLevel,
-    SarifLog, SarifResult,
-};
+use cyberguard_core::sarif::{Message, ReportingDescriptor, SarifLevel, SarifLog, SarifResult};
 
 #[test]
 fn test_sarif_log_creation_and_serialization() {
@@ -20,32 +17,18 @@ fn test_sarif_log_creation_and_serialization() {
         help_uri: Some("https://cyberguard.dev/rules/CG-SEC-001".to_string()),
     };
 
-    let result = SarifResult {
-        rule_id: "CG-SEC-001".to_string(),
-        level: SarifLevel::Error,
-        message: Message {
-            text: "Potential remote code execution via tainted endpoint parameter".to_string(),
-        },
-        locations: vec![Location {
-            physical_location: Some(PhysicalLocation {
-                artifact_location: ArtifactLocation {
-                    uri: "src/server/handler.rs".to_string(),
-                },
-                region: Some(Region {
-                    start_line: 42,
-                    start_column: Some(15),
-                    end_line: Some(42),
-                    end_column: Some(38),
-                }),
-            }),
-        }],
-        properties: Some(serde_json::json!({
-            "cvss": 9.8,
-            "epss": 0.89,
-            "reachability": "VERIFIED_REACHABLE",
-            "tri_factor_score": 8.72
-        })),
-    };
+    let mut result = SarifResult::new(
+        "CG-SEC-001",
+        SarifLevel::Error,
+        "Potential remote code execution via tainted endpoint parameter",
+    );
+    result.add_location("src/server/handler.rs", 42, Some(15), Some(42), Some(38));
+    result.properties = Some(serde_json::json!({
+        "cvss": 9.8,
+        "epss": 0.89,
+        "reachability": "VERIFIED_REACHABLE",
+        "tri_factor_score": 8.72
+    }));
 
     log.add_rule(rule);
     log.add_result(result);

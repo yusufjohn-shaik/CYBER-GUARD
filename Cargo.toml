@@ -46,6 +46,9 @@ nix = { version = "0.29", features = ["process", "signal"] }
 # Time & Duration
 chrono = { version = "0.4", features = ["serde"] }
 
+# Cryptographic Hashing
+sha2 = "0.10"
+
 # Internal workspace crates
 cyberguard-core = { path = "crates/cyberguard-core" }
 cyberguard-proc = { path = "crates/cyberguard-proc" }
