@@ -1,4 +1,4 @@
-name: DCO & Quality Gate
+name: DCO, Rust CI & Quality Gate
 
 on:
   pull_request:
@@ -48,27 +48,23 @@ jobs:
             exit 1
           fi
 
-  license-header-check:
-    name: Verify License Headers
+  rust-quality-gate:
+    name: Rust Workspace Test, Clippy & Format
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Verify Apache 2.0 Header on Source Files
-        run: |
-          echo "Scanning for missing Apache 2.0 license headers in Go and Python files..."
-          MISSING=0
-          for file in $(git ls-files '*.go' '*.py'); do
-            if ! grep -q "Licensed under the Apache License, Version 2.0" "$file"; then
-              echo "⚠️ Missing Apache 2.0 header in: $file"
-              MISSING=1
-            fi
-          done
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
 
-          if [ $MISSING -ne 0 ]; then
-            echo "Warning: Some source files do not include the standard Apache 2.0 notice header."
-            # Set to non-fatal for initial scaffolding, enforceable as code expands
-          else
-            echo "✅ All source files include standard license header."
-          fi
+      - name: Verify Code Formatting
+        run: cargo fmt --check
+
+      - name: Run Clippy Linter
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Run Workspace Tests
+        run: cargo test --workspace --verbose

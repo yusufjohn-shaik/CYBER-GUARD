@@ -18,10 +18,10 @@
 ## 🛡️ Clean-Room & Legal Compliance Checklist
 <!-- MANDATORY: Every PR must satisfy the following checks before merging -->
 - [ ] **Developer Certificate of Origin (DCO):** All commits are signed off (`git commit -s`) conforming to the Linux Foundation DCO v1.1.
-- [ ] **No Copyleft Contamination:** No GPLv2, GPLv3, or AGPL code has been copied, statically linked, or vendored into the Go core. Any copyleft tools are strictly isolated via subprocess (`pkg/proc/exec.go`) or OCI container sidecars.
+- [ ] **No Copyleft Contamination:** No GPLv2, GPLv3, or AGPL code has been copied, statically linked, or vendored into the Rust core. Any copyleft tools are strictly isolated via subprocess (`crates/cyberguard-proc`) or OCI container sidecars.
 - [ ] **Safe Harbor Compliance:** No weaponized exploit payloads, shellcode, or malicious automation scripts are included.
-- [ ] **Test Coverage:** Automated unit tests (`*_test.go` or `test_*.py`) have been added/updated and achieve **>= 80% coverage**.
-- [ ] **Linting & Formatting:** Code passes `golangci-lint`, `gofmt -s`, and Python linting rules.
+- [ ] **Test Coverage:** Automated unit/integration tests (`cargo test --workspace`) have been added/updated and achieve **>= 80% coverage**.
+- [ ] **Linting & Formatting:** Code compiles cleanly with zero warnings under `cargo clippy --workspace -- -D warnings` and passes `cargo fmt --check`.
 - [ ] **Documentation:** User-facing flags, configuration schemas, or module documents in `docs/modules/` have been updated.
 
 ---
@@ -29,6 +29,8 @@
 ## How Has This Been Tested?
 <!-- Describe the tests you ran to verify your changes. Include commands and sample outputs. -->
 ```bash
-# Example verification command:
-go test -v -race -cover ./...
+# Workspace verification commands:
+cargo test --workspace
+cargo clippy --workspace -- -D warnings
+cargo fmt --check
 ```
