@@ -128,3 +128,61 @@ fn test_sarif_to_ocsf_conversion() {
     assert_eq!(ocsf_event.vulnerabilities[0].reachability, Some(1.0));
     assert_eq!(ocsf_event.vulnerabilities[0].tri_factor_score, Some(6.38)); // 8.5 * 0.75 * 1.0 = 6.375 -> rounded to 6.38
 }
+
+#[test]
+fn test_deterministic_fingerprint_stability_and_uniqueness() {
+    let mut res1 = SarifResult::new("CG-RCE-001", SarifLevel::Error, "Remote Code Execution");
+    res1.add_location("src/handler.rs", 100, None, None, None);
+    res1.compute_deterministic_fingerprint();
+
+    let mut res2 = SarifResult::new("CG-RCE-001", SarifLevel::Error, "Remote Code Execution");
+    res2.add_location("src/handler.rs", 100, None, None, None);
+    res2.compute_deterministic_fingerprint();
+
+    let mut res3 = SarifResult::new("CG-RCE-001", SarifLevel::Error, "Remote Code Execution");
+    res3.add_location("src/other.rs", 100, None, None, None);
+    res3.compute_deterministic_fingerprint();
+
+    let fp1 = res1.partial_fingerprints.unwrap();
+    let fp2 = res2.partial_fingerprints.unwrap();
+    let fp3 = res3.partial_fingerprints.unwrap();
+
+    // Identical rule and location produce identical fingerprint
+    assert_eq!(
+        fp1.get("logicalLocationTokenHash/v1"),
+        fp2.get("logicalLocationTokenHash/v1")
+    );
+
+    // Different location produces different fingerprint
+    assert_ne!(
+        fp1.get("logicalLocationTokenHash/v1"),
+        fp3.get("logicalLocationTokenHash/v1")
+    );
+}
+
+#[test]
+fn test_tri_factor_zero_reachability_neutralizes_risk() {
+    let mut res = SarifResult::new("CG-DESER-001", SarifLevel::Error, "Vulnerable Deserializer");
+    res.with_tri_factor(9.8, 0.95, 0.0); // Reachability = 0.0
+
+    let props = res.properties.unwrap();
+    let score = props.get("triFactorScore").unwrap().as_f64().unwrap();
+    assert_eq!(score, 0.0); // Risk is completely neutralized!
+}
+
+#[test]
+fn test_ocsf_severity_levels_mapping() {
+    let mut critical_res =
+        SarifResult::new("CG-AUTH-001", SarifLevel::Error, "Critical Auth Bypass");
+    critical_res.with_tri_factor(9.8, 0.9, 1.0); // CVSS >= 9.0 -> Critical
+    let event = critical_res.to_ocsf("CG");
+    assert_eq!(event.severity_id, OcsfSeverity::Critical as u8);
+
+    let warn_res = SarifResult::new("CG-INFO-001", SarifLevel::Warning, "Weak Cipher Suite");
+    let event = warn_res.to_ocsf("CG");
+    assert_eq!(event.severity_id, OcsfSeverity::Medium as u8);
+
+    let note_res = SarifResult::new("CG-NOTE-001", SarifLevel::Note, "Verbose Headers");
+    let event = note_res.to_ocsf("CG");
+    assert_eq!(event.severity_id, OcsfSeverity::Low as u8);
+}

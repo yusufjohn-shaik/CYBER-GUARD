@@ -1,6 +1,7 @@
 use cyberguard_core::config::CyberguardConfig;
+use cyberguard_core::error::ConfigError;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 #[test]
 fn test_default_configuration() {
@@ -46,6 +47,37 @@ reporting:
         config.reporting.output_file,
         Some(PathBuf::from("/tmp/results.sarif"))
     );
+
+    let _ = fs::remove_dir_all(&tmp_dir);
+}
+
+#[test]
+fn test_nonexistent_config_file_returns_error() {
+    let nonexistent = Path::new("/path/does/not/exist/cyberguard.yaml");
+    let result = CyberguardConfig::load_from_path(nonexistent);
+    assert!(result.is_err());
+    match result {
+        Err(ConfigError::FileNotFound(path)) => {
+            assert_eq!(path, nonexistent.to_path_buf());
+        }
+        _ => panic!("Expected ConfigError::FileNotFound"),
+    }
+}
+
+#[test]
+fn test_invalid_yaml_syntax_returns_parse_error() {
+    let tmp_dir = std::env::temp_dir().join(format!("cg_test_invalid_{}", std::process::id()));
+    fs::create_dir_all(&tmp_dir).expect("Failed to create temp directory");
+    let config_path = tmp_dir.join("invalid.yaml");
+
+    fs::write(&config_path, "general: [unclosed list").expect("Failed to write broken yaml");
+
+    let result = CyberguardConfig::load_from_path(&config_path);
+    assert!(result.is_err());
+    match result {
+        Err(ConfigError::ParseError(_)) => {}
+        _ => panic!("Expected ConfigError::ParseError"),
+    }
 
     let _ = fs::remove_dir_all(&tmp_dir);
 }
