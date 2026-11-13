@@ -35,7 +35,7 @@ To maintain transparent, uncompromising security credibility, here is what is li
 | **CLI & Process Supervisor** | Module 02 | **LIVE ✅** | `cyberguard-cli`, POSIX process group sandboxing, 10 MB buffer bounds, Figment config |
 | **Universal Security Bus** | Module 03 | **LIVE ✅** | `cyberguard-core`, OASIS SARIF v2.1.0, OCSF v1.3.0, BLAKE3 deterministic fingerprints |
 | **In-Process SAST Engine** | Module 04 | **LIVE ✅** | `cyberguard-sast`, linear $O(n)$ regex scanner (SQLi, CMDi, Secrets, Path, Crypto), walker |
-| **SCA & Supply Chain** | Module 05 | **IN PROGRESS 🚧** | Native lockfile parser (`Cargo.lock`, `package-lock.json`), CycloneDX/SPDX SBOM |
+| **SCA & Supply Chain** | Module 05 | **LIVE ✅** | `cyberguard-sca`, Cargo/npm lockfile parsing, CycloneDX v1.5 & SPDX v2.3 SBOM, OSV advisory engine |
 | **Secret Detection Engine** | Module 06 | **PLANNED 📋** | High-entropy secrets validator, multi-provider credentials detection |
 | **MCP AI Agent Server** | Module 16 | **PLANNED 📋** | JSON-RPC Model Context Protocol server for Antigravity, Cursor, and Claude Code |
 | **Attack Path Graph (DAG)** | Module 17 | **PLANNED 📋** | In-memory directed acyclic graph mapping multi-hop exploit chains |

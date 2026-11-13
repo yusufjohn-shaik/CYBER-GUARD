@@ -2,8 +2,10 @@ use clap::{Args, Parser, Subcommand, ValueEnum};
 use cyberguard_core::config::CyberguardConfig;
 use cyberguard_core::sarif::{Message, ReportingDescriptor, SarifLevel, SarifLog};
 use cyberguard_sast::{NativeRuleEngine, SastAnalyzer, ScanContext};
-use std::path::PathBuf;
-use tracing::{info, Level};
+use cyberguard_sca::sbom::{generate_cyclonedx_json, generate_spdx_json};
+use cyberguard_sca::{ScaAnalyzer, ScaEngine};
+use std::path::{Path, PathBuf};
+use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
 
 #[derive(Parser, Debug)]
@@ -65,8 +67,22 @@ pub struct ScanArgs {
 
 #[derive(Args, Debug, PartialEq, Eq)]
 pub struct AuditArgs {
-    /// Target infrastructure or dependency manifest
+    /// Target directory or dependency manifest (defaults to current directory)
+    #[arg(default_value = ".")]
     pub target: String,
+
+    /// Output report format
+    #[arg(short, long, value_enum, default_value_t = AuditFormat::Terminal)]
+    pub format: AuditFormat,
+}
+
+#[derive(ValueEnum, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum AuditFormat {
+    Terminal,
+    Sarif,
+    Json,
+    Cyclonedx,
+    Spdx,
 }
 
 #[derive(Args, Debug, PartialEq, Eq)]
@@ -214,8 +230,96 @@ async fn main() -> anyhow::Result<()> {
             }
         }
         Some(Commands::Audit(args)) => {
-            println!("🔍 Auditing target: {}", args.target);
-            info!("Audit completed for target {}", args.target);
+            let target_path = Path::new(&args.target);
+            let sca_engine = ScaEngine::new();
+            let report = sca_engine.scan(target_path).await?;
+
+            match args.format {
+                AuditFormat::Cyclonedx => {
+                    let project_name = target_path
+                        .file_name()
+                        .and_then(|f| f.to_str())
+                        .unwrap_or("project");
+                    let cyclonedx_json = generate_cyclonedx_json(project_name, &report.packages)?;
+                    println!("{}", cyclonedx_json);
+                }
+                AuditFormat::Spdx => {
+                    let project_name = target_path
+                        .file_name()
+                        .and_then(|f| f.to_str())
+                        .unwrap_or("project");
+                    let spdx_json = generate_spdx_json(project_name, &report.packages)?;
+                    println!("{}", spdx_json);
+                }
+                AuditFormat::Sarif | AuditFormat::Json => {
+                    let sarif_log = sca_engine.to_sarif_log(&report);
+                    println!("{}", serde_json::to_string_pretty(&sarif_log)?);
+                }
+                AuditFormat::Terminal => {
+                    println!(
+                        "🛡️  CyberGuard SCA & Supply Chain Auditor v{}",
+                        env!("CARGO_PKG_VERSION")
+                    );
+                    println!("Target: {}", target_path.display());
+                    println!(
+                        "Scanned {} lockfile(s) | Total dependencies: {} ({} direct, {} transitive)",
+                        report.lockfiles_scanned.len(),
+                        report.total_packages,
+                        report.direct_dependencies,
+                        report.transitive_dependencies
+                    );
+                    println!("{:-<80}", "");
+
+                    if report.findings.is_empty() {
+                        println!("✅ No known supply-chain vulnerabilities found in dependencies.");
+                    } else {
+                        println!(
+                            "Found {} vulnerable dependency alert(s):",
+                            report.findings.len()
+                        );
+                        println!();
+                        for finding in &report.findings {
+                            let sev_label = if finding.vulnerability.cvss >= 9.0 {
+                                "🔴 CRITICAL"
+                            } else if finding.vulnerability.cvss >= 7.0 {
+                                "🔴 HIGH    "
+                            } else if finding.vulnerability.cvss >= 4.0 {
+                                "🟡 MEDIUM  "
+                            } else {
+                                "🔵 LOW     "
+                            };
+
+                            let dep_type = if finding.package.is_direct {
+                                "Direct"
+                            } else {
+                                "Transitive"
+                            };
+
+                            println!(
+                                "{} [{}] {}@{} ({:?})",
+                                sev_label,
+                                finding.vulnerability.id,
+                                finding.package.name,
+                                finding.package.version,
+                                finding.package.ecosystem
+                            );
+                            println!("   └── {}", finding.vulnerability.summary);
+                            println!(
+                                "   └── CVSS: {:.1} | EPSS: {:.2} | Reachability: {:.1} ({}) | Tri-Factor: {:.2}",
+                                finding.vulnerability.cvss,
+                                finding.vulnerability.epss,
+                                finding.reachability,
+                                dep_type,
+                                finding.tri_factor_score
+                            );
+                            if let Some(ref fixed) = finding.vulnerability.fixed_version {
+                                println!("   └── Remediation: Upgrade to {} or later", fixed);
+                            }
+                        }
+                    }
+                    println!("{:-<80}", "");
+                }
+            }
         }
         Some(Commands::Trace(args)) => {
             println!(

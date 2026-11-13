@@ -4,11 +4,12 @@ members = [
     "crates/cyberguard-proc",
     "crates/cyberguard-cli",
     "crates/cyberguard-sast",
+    "crates/cyberguard-sca",
 ]
 resolver = "2"
 
 [workspace.package]
-version = "0.4.0"
+version = "0.5.0"
 edition = "2021"
 authors = ["Shaik Yusuf John <yusufjohn252007@gmail.com>"]
 license = "Apache-2.0"
@@ -40,6 +41,7 @@ anyhow = "1.0"
 # Serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+toml = "0.8"
 
 # Process & Signals
 nix = { version = "0.29", features = ["process", "signal"] }
@@ -50,10 +52,14 @@ chrono = { version = "0.4", features = ["serde"] }
 # Cryptographic Hashing
 sha2 = "0.10"
 
+# Semver evaluation
+semver = { version = "1.0", features = ["serde"] }
+
 # Internal workspace crates
 cyberguard-core = { path = "crates/cyberguard-core" }
 cyberguard-proc = { path = "crates/cyberguard-proc" }
 cyberguard-sast = { path = "crates/cyberguard-sast" }
+cyberguard-sca = { path = "crates/cyberguard-sca" }
 
 # SAST Engine dependencies
 regex = "1.11"
