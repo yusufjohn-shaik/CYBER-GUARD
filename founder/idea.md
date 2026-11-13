@@ -1,0 +1,7 @@
+# CYBER-GUARD
+
+- What it is: Next-generation autonomous vulnerability intelligence and AST auto-remediation platform that correlates cross-layer exploit chains into an in-memory attack path graph (DAG) and generates syntax-verified code fixes.
+- Who it is for: DevSecOps engineers, application security teams, and engineering leads building modern cloud-native apps (Next.js, FastAPI, Go, Rust, K8s, GenAI/LLM apps) drowning in false positives and fragmented security alerts.
+- What it sells, at what price: Hybrid Open-Core model. Free open-source CLI/microkernel (basic SAST, SARIF v2.1.0 bus). Commercial Pro/Enterprise tier at $49/seat/month for teams or $30,000–$60,000/yr enterprise contract for cross-layer DAG attack path correlation, automated AST code patching, CI/CD policy gates, and Model Context Protocol (MCP) AI pair programming integration.
+- Where and how: Global online delivery. Distributed as a standalone zero-overhead Rust binary, GitHub Action/CI runner, and MCP server for AI coding agents (Antigravity, Claude Code, Cursor). Customer acquisition via open-source developer adoption, GitHub marketplace, and security community word of mouth.
+- Budget and constraints: Indie/early-stage founder project (Yusuf John Shaik), written in Rust / Tokio / Tree-sitter. 21-day modular roadmap (currently completing Phase 1 core engines). Bootstrapped, limited upfront marketing capital.

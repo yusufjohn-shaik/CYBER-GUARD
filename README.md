@@ -1,43 +1,57 @@
 <div align="center">
 
 # 🛡️ CYBER-GUARD
-### Next-Generation Autonomous Vulnerability Intelligence & Remediation Platform
+### High-Performance Vulnerability Intelligence & Autonomous Remediation Platform
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
-[![Rust Version](https://img.shields.io/badge/Rust-1.85%2B%20%2F%202024%20Edition-orange.svg?style=flat-square&logo=rust)](https://www.rust-lang.org)
-[![SARIF Standard](https://img.shields.io/badge/Standard-SARIF%20v2.1.0-orange.svg?style=flat-square)](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
-[![AI Agent Ready](https://img.shields.io/badge/AI%20Protocol-Model%20Context%20Protocol%20(MCP)-8A2BE2.svg?style=flat-square)](https://modelcontextprotocol.io)
+[![Rust Version](https://img.shields.io/badge/Rust-1.85%2B-orange.svg?style=flat-square&logo=rust)](https://www.rust-lang.org)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/yusufjohn-shaik/CYBER-GUARD/dco_and_lint.yml?branch=main&label=CI%20Quality%20Gate&style=flat-square)](https://github.com/yusufjohn-shaik/CYBER-GUARD/actions)
+[![SARIF Standard](https://img.shields.io/badge/Standard-OASIS%20SARIF%20v2.1.0-orange.svg?style=flat-square)](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html)
+[![AI Agent Protocol](https://img.shields.io/badge/AI%20Protocol-Model%20Context%20Protocol%20(MCP)-8A2BE2.svg?style=flat-square)](https://modelcontextprotocol.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 [![DCO](https://img.shields.io/badge/DCO-Signed--off--by-green.svg?style=flat-square)](CONTRIBUTING.md)
-[![OpenSSF Scorecard](https://img.shields.io/badge/OpenSSF-Scorecard%2010%2F10-brightgreen.svg?style=flat-square)](.github/workflows/openssf_scorecard.yml)
 
 <p align="center">
-  <b>Find Real Vulnerabilities in Modern Software • Correlate Cross-Layer Exploit Chains • Auto-Remediate with Precision</b>
+  <b>100% Pure Native Rust • Zero External Runtime Dependencies • ReDoS-Immune Linear Scanning • OASIS SARIF v2.1.0 Engine</b>
 </p>
 
-[The Vision](#-the-vision) •
-[Core Capabilities](#-core-capabilities) •
 [Quickstart](#-quickstart) •
+[Capability Matrix](#-capability-status-matrix) •
 [Architecture](#-system-architecture) •
-[Modern Vulnerability Coverage](#-built-for-modern-stacks) •
 [Contributing](#-join-the-community) •
-[Milestones](ROADMAP.md)
+[Roadmap](ROADMAP.md)
 
 </div>
 
 ---
 
-## 🌟 The Vision: Beyond Tool Bundles
+## 📊 Capability Status Matrix
 
-Most security tools available today were built for the software architectures of a decade ago. Simply wrapping or stitching together legacy scanners produces shallow results: thousands of disconnected alerts, 70%+ false positive rates, and zero understanding of how a vulnerability in code actually interacts with cloud IAM permissions, API routes, or data pipelines.
+To maintain transparent, uncompromising security credibility, here is what is live and verified today versus what is actively being built on the roadmap:
 
-**CyberGuard is a purpose-built, top-tier Vulnerability Intelligence Product designed for the applications being built right now:**
+| Capability | Module | Status | Deliverables & Interfaces |
+| :--- | :--- | :---: | :--- |
+| **Legal & Safe Harbor** | Module 01 | **LIVE ✅** | Apache 2.0, Statutory Safe Harbor, DCO Gate, OpenSSF Scorecard workflow |
+| **CLI & Process Supervisor** | Module 02 | **LIVE ✅** | `cyberguard-cli`, POSIX process group sandboxing, 10 MB buffer bounds, Figment config |
+| **Universal Security Bus** | Module 03 | **LIVE ✅** | `cyberguard-core`, OASIS SARIF v2.1.0, OCSF v1.3.0, BLAKE3 deterministic fingerprints |
+| **In-Process SAST Engine** | Module 04 | **LIVE ✅** | `cyberguard-sast`, linear $O(n)$ regex scanner (SQLi, CMDi, Secrets, Path, Crypto), walker |
+| **SCA & Supply Chain** | Module 05 | **IN PROGRESS 🚧** | Native lockfile parser (`Cargo.lock`, `package-lock.json`), CycloneDX/SPDX SBOM |
+| **Secret Detection Engine** | Module 06 | **PLANNED 📋** | High-entropy secrets validator, multi-provider credentials detection |
+| **MCP AI Agent Server** | Module 16 | **PLANNED 📋** | JSON-RPC Model Context Protocol server for Antigravity, Cursor, and Claude Code |
+| **Attack Path Graph (DAG)** | Module 17 | **PLANNED 📋** | In-memory directed acyclic graph mapping multi-hop exploit chains |
+| **AST Auto-Remediation** | Module 19 | **PLANNED 📋** | Tree-sitter AST syntax patcher and automated regression test generator |
 
-- **Modern Software Stacks:** Built natively for Next.js, FastAPI, Go, Rust, Spring Boot, GraphQL, gRPC, Cloud-Native Kubernetes, and GenAI/LLM-integrated applications.
-- **Deep Semantic Taint & Reachability Analysis:** Traces user input from modern API endpoints through call graphs to critical sinks (SQL, Command Injection, SSRF, Deserialization, LLM Prompt Injection).
-- **In-Memory Attack Path Graph (DAG):** Correlates multi-layer findings into coherent exploit paths. A vulnerable dependency is only flagged as critical if CyberGuard mathematically proves it is **reachable and exploitable** through an exposed route.
-- **Autonomous, Syntax-Preserving Remediation:** Don't just report vulnerabilities—fix them. CyberGuard generates syntax-verified AST code patches and automated regression tests.
-- **First-Class AI Agent Skill:** Operates standalone via a blazing-fast, zero-overhead Rust binary, or natively inside AI coding agents (Claude Code, Antigravity, Cursor) via the Anthropic Model Context Protocol (MCP).
+---
+
+## 🌟 The Vision: Security Built for the Modern Era
+
+Most legacy security scanners were built for the software architectures of a decade ago. Stacking disconnected tools produces shallow results: thousands of unprioritized alerts, 70%+ false positive noise, and zero understanding of how a vulnerability in code actually interacts with cloud permissions, exposed routes, or API dataflows.
+
+**CyberGuard is a purpose-built vulnerability intelligence platform written in pure Rust:**
+- **Zero Runtime Dependencies:** No Python, JVM, or Node.js required. Ships as a single static, sandboxed binary.
+- **Linear-Time SAST ($O(n)$):** Native regular expression automata mathematically immune to ReDoS backtracking attacks.
+- **Universal SARIF v2.1.0 Data Bus:** Deterministic BLAKE3 partial fingerprints (`logicalLocationTokenHash/v1`) prevent duplicate alerts across commits and tooling runs.
+- **AI Agent Integration:** Designed to plug directly into AI coding agents via the Model Context Protocol (MCP).
 
 ---
 
@@ -119,32 +133,54 @@ CyberGuard is designed from the ground up for modern application engineering:
 
 ## 🚀 Quickstart
 
-### Installation (Preview)
+### 1. Build from Source (Pure Rust)
 
 ```bash
-# Build high-performance static binary from source using Cargo (Rust 1.85+)
 git clone https://github.com/yusufjohn-shaik/CYBER-GUARD.git
 cd CYBER-GUARD
-cargo build --release --workspace
-
-# The binary is located at ./target/release/cyberguard
-./target/release/cyberguard --version
+cargo build --release
 ```
 
-### Essential Commands
+### 2. Run the SAST Scanner on the Demo Fixture
+
+CyberGuard ships with an intentionally vulnerable fixture application so you can test detection immediately:
 
 ```bash
-# Perform deep vulnerability discovery across your application stack
-cyberguard scan .
+./target/release/cyberguard scan tests/fixtures/vulnerable-app
+```
 
-# Trace attack paths and correlate code vulnerabilities with cloud/network assets
-cyberguard trace .
+**Real Terminal Output:**
+```text
+🛡️  CyberGuard SAST Engine v0.4.0
+Target: tests/fixtures/vulnerable-app
+Workspace: .
+--------------------------------------------------------------------------------
+Found 5 vulnerability alert(s):
 
-# Automatically generate AST-verified code fixes and unit tests
-cyberguard fix --auto .
+🔴 ERROR [CG-SQLI-001] tests/fixtures/vulnerable-app/app.py:9:14
+   └── Potential SQL injection via raw string interpolation or concatenation.
+   └── Fingerprint: 7685d4d6b246a416
+🟡 WARN  [CG-CRYP-001] tests/fixtures/vulnerable-app/app.py:17:12
+   └── Broken or cryptographically weak hashing algorithm (MD5/SHA1) detected.
+   └── Fingerprint: 0aea6a26a7d94cf4
+🔴 ERROR [CG-SECR-001] tests/fixtures/vulnerable-app/config.py:5:22
+   └── Hardcoded cryptographic secret or API token detected in source code.
+   └── Fingerprint: df1e1849a29a4d76
+🔴 ERROR [CG-CMDI-001] tests/fixtures/vulnerable-app/handler.js:9:5
+   └── Potential OS command injection via unescaped string in command invocation.
+   └── Fingerprint: e582c30c13821add
+🟡 WARN  [CG-PATH-001] tests/fixtures/vulnerable-app/handler.js:21:34
+   └── Potential directory traversal via unvalidated relative path sequence.
+   └── Fingerprint: 874987e8a2b5586e
+--------------------------------------------------------------------------------
+```
 
-# Launch CyberGuard as an autonomous Model Context Protocol (MCP) server
-cyberguard mcp --port 8080
+### 3. Export OASIS SARIF v2.1.0 Telemetry
+
+Generate standard SARIF telemetry compatible with GitHub Code Scanning, DefectDojo, and VS Code SARIF viewers:
+
+```bash
+./target/release/cyberguard scan tests/fixtures/vulnerable-app --format sarif | jq .
 ```
 
 ---

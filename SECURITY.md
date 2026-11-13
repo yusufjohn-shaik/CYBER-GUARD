@@ -39,9 +39,9 @@ We adhere to the following coordinated disclosure service level agreements:
 
 | Milestone | Target Response Time | Action |
 | :--- | :---: | :--- |
-| **Acknowledgment** | **Within 24 hours** | A member of the CyberGuard Security Team will confirm receipt of your report. |
-| **Triage & Reproduction** | **Within 7 business days** | The team will validate the flaw, assign a CVSS v3.1 / v4.0 score, and classify severity. |
-| **Fix Development** | **Within 14 business days** | A pull request addressing the issue will be developed in a private security fork. |
+| **Acknowledgment** | **Within 24–48 hours** | The project maintainer will confirm receipt of your report. |
+| **Triage & Reproduction** | **Within 7 business days** | The maintainer will validate the flaw, assign a CVSS score, and classify severity. |
+| **Fix Development** | **Within 14 business days** | A patch addressing the issue will be developed in a private security branch. |
 | **Release & Disclosure** | **Within 30 calendar days** | A security advisory (CVE) will be issued and patch released simultaneously. |
 
 ---
@@ -54,5 +54,5 @@ When conducting good-faith security research against CyberGuard:
 - We will publicly credit your contribution in our Security Advisories and Hall of Fame (unless you wish to remain anonymous).
 
 ### Scope:
-- **In Scope:** The CyberGuard Go core CLI, MCP agent protocol server, SARIF parser, attack graph engine, and official GitHub action workflows.
+- **In Scope:** The CyberGuard Rust core CLI, MCP agent protocol server, SARIF parser, attack graph engine, and official GitHub action workflows.
 - **Out of Scope:** Third-party upstream tools wrapped by CyberGuard (e.g., Trivy, Nuclei, Masscan). Vulnerabilities in upstream projects should be reported directly to their respective maintainers.
