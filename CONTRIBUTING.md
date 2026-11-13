@@ -37,8 +37,8 @@ CyberGuard is released under the **Apache License, Version 2.0**.
 
 ### ⚠️ Strict Copyleft Prohibition:
 1. **Never copy-paste code** from GPLv2, GPLv3, AGPLv3, or SSPL projects into the CyberGuard repository.
-2. **Never vendor or statically link** copyleft libraries into the core Go binary.
-3. Third-party tools with copyleft licenses (e.g., Masscan, TruffleHog, TheHive) must only be integrated as **isolated external subprocesses** (`pkg/proc/exec.go`) or OCI container sidecars.
+2. **Never vendor or statically link** copyleft libraries into the core Rust binary.
+3. Third-party tools with copyleft licenses (e.g., Masscan, TruffleHog, TheHive) must only be integrated as **isolated external subprocesses** (`crates/cyberguard-proc`) or OCI container sidecars.
 
 Any pull request containing vendored or copyleft code will be closed immediately.
 
@@ -62,16 +62,19 @@ All commits must follow the [Conventional Commits](https://www.conventionalcommi
 - `chore:` Changes to build process, CI workflows, or dependencies
 
 ### Quality & Testing Gates:
-1. **Test Coverage:** All new Go packages must include unit tests (`*_test.go`) achieving at least **80% code coverage**:
+1. **Test Coverage:** All new Rust crates and modules must include unit and integration tests (`tests/*_test.rs`) achieving at least **80% code coverage**:
    ```bash
-   go test -race -covermode=atomic -coverprofile=coverage.out ./...
+   cargo test --workspace
    ```
-2. **Go Code Style:** Must pass standard Go linting:
+2. **Rust Code Quality & Linting:** Must compile cleanly with zero warnings under Clippy:
    ```bash
-   golangci-lint run ./...
-   gofmt -s -w .
+   cargo clippy --workspace --all-targets -- -D warnings
    ```
-3. **No Weaponized Payloads:** Never commit active exploit payloads, weaponized shellcode, or live attack scripts.
+3. **Rust Code Formatting:** Must conform to standard Rust formatting:
+   ```bash
+   cargo fmt --all -- --check
+   ```
+4. **No Weaponized Payloads:** Never commit active exploit payloads, weaponized shellcode, or live attack scripts.
 
 ---
 
