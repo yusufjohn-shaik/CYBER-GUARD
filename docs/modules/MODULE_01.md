@@ -55,9 +55,9 @@ To safely integrate 72+ open-source tools across all 15 domains without license 
 │                   CYBERGUARD CLEAN-ROOM BOUNDARY                       │
 │                                                                        │
 │   ┌──────────────────────────────────────────────────────────────┐     │
-│   │   CYBERGUARD CORE ENGINE (APACHE 2.0 - PURE GO 1.22+)        │     │
-│   │   - Cobra CLI Grammar           - SARIF / OCSF Normalizer   │     │
-│   │   - MCP AI Agent Protocol       - DAG Attack Path Engine    │     │
+│   │   CYBERGUARD CORE ENGINE (APACHE 2.0 - PURE RUST)            │     │
+│   │   - Clap CLI Grammar            - SARIF / OCSF Normalizer    │     │
+│   │   - MCP AI Agent Protocol       - In-Process SAST Engine     │     │
 │   └──────────────────────────────┬───────────────────────────────┘     │
 │                                  │ Subprocess / OCI Container Pipe     │
 │                                  ▼ (STDIN / STDOUT / SARIF Files)      │
@@ -70,8 +70,8 @@ To safely integrate 72+ open-source tools across all 15 domains without license 
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-1. **Subprocess Boundary:** Copyleft tools are invoked solely as external OS processes (`os/exec`) via standard input/output streams and SARIF file exchange.
-2. **Zero Static Linking:** No GPL/AGPL source code, C-bindings, or Go packages are vendored or linked into the binary.
+1. **Subprocess Boundary:** Copyleft tools are invoked solely as external OS processes (`crates/cyberguard-proc`) via standard input/output streams and SARIF file exchange.
+2. **Zero Static Linking:** No GPL/AGPL source code, C-bindings, or copyleft libraries are vendored or linked into the binary.
 
 ### 2.5. Developer Certificate of Origin (`CONTRIBUTING.md`)
 - Employs the **Linux Foundation DCO v1.1** standard (used by Linux Kernel, Kubernetes, Docker, and CNCF).
@@ -102,9 +102,9 @@ To safely integrate 72+ open-source tools across all 15 domains without license 
 
 ---
 
-## 4. Next Step: Module 02 Preview
-**Module 02: Core Go CLI & Microkernel Skeleton**
-- Initialize Go 1.22+ module (`github.com/cyberguard/cyberguard`).
-- Implement Cobra CLI grammar (`cyberguard [scan|fix|audit|report|mcp|version]`).
-- Hierarchical Viper configuration manager (`.cyberguard.yaml`).
-- Subprocess supervisor (`pkg/proc/exec.go`) with process timeout and signal handling.
+## 4. Next Step: Module 02 Overview
+**Module 02: Core Rust CLI & Microkernel Skeleton**
+- Initialize Cargo workspace (`cyberguard-cli`, `cyberguard-core`, `cyberguard-proc`).
+- Implement Clap derive CLI grammar (`cyberguard [scan|audit|trace|fix|mcp|version]`).
+- Hierarchical configuration manager (`cyberguard.yaml` / Figment).
+- Subprocess supervisor (`crates/cyberguard-proc/src/supervisor.rs`) with process timeout, process-group isolation, and bounded memory buffers.

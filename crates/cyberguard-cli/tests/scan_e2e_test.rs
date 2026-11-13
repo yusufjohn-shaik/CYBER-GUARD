@@ -48,7 +48,7 @@ async fn test_end_to_end_sast_scan_flow() {
     assert!(findings.iter().any(|f| f.rule_id == "CG-CMDI-001"));
 
     // 3. Assemble full SARIF v2.1.0 log
-    let mut sarif_log = SarifLog::new("CyberGuard SAST", "0.4.0");
+    let mut sarif_log = SarifLog::new("CyberGuard SAST", env!("CARGO_PKG_VERSION"));
     for f in findings {
         sarif_log.add_result(f);
     }

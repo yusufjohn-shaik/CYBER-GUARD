@@ -44,9 +44,9 @@ CyberGuard's architecture and disclosure policies are structured to support good
 CyberGuard is distributed under the permissive **Apache License, Version 2.0**. 
 
 To protect enterprise organizations from copyright infringement, license disputes, and copyleft contamination:
-- The core orchestrator, CLI, Model Context Protocol (MCP) server, and SARIF/OCSF data engines are written in 100% clean-room Go (Apache 2.0).
+- The core orchestrator, CLI, Model Context Protocol (MCP) server, and SARIF/OCSF data engines are written in 100% clean-room native Rust (Apache 2.0).
 - Third-party open-source tools with restrictive copyleft licenses (e.g., GPLv2, GPLv3, AGPLv3) are **never** statically linked, vendored, or compiled into the CyberGuard binary.
-- All copyleft-licensed dependencies are executed strictly over documented subprocess boundaries (`os/exec`) or decoupled container sidecars (OCI containers).
+- All copyleft-licensed dependencies are executed strictly over documented subprocess boundaries (`crates/cyberguard-proc` async process supervisor) or decoupled container sidecars (OCI containers).
 
 ---
 

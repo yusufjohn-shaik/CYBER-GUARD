@@ -11,14 +11,14 @@ target/
 **/*.rs.bk
 *.pdb
 
-# Go test and coverage output
+# Test and coverage output
 *.test
 *.out
 coverage.html
 coverage.txt
 coverage.out
 
-# Go dependency cache
+# Dependency caches and vendor directories
 vendor/
 
 # Python artifacts

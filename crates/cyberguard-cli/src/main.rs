@@ -243,7 +243,8 @@ async fn main() -> anyhow::Result<()> {
         }
         None => {
             println!(
-                "🛡️  CyberGuard 0.2.0 - Next-Generation Autonomous Vulnerability Intelligence"
+                "🛡️  CyberGuard {} - Next-Generation Autonomous Vulnerability Intelligence",
+                env!("CARGO_PKG_VERSION")
             );
             println!("Run 'cyberguard --help' for available commands.");
         }

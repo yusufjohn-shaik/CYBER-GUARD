@@ -2,7 +2,7 @@ use cyberguard_core::sarif::{Message, ReportingDescriptor, SarifLevel, SarifLog,
 
 #[test]
 fn test_sarif_log_creation_and_serialization() {
-    let mut log = SarifLog::new("CyberGuard", "0.2.0");
+    let mut log = SarifLog::new("CyberGuard", env!("CARGO_PKG_VERSION"));
 
     let rule = ReportingDescriptor {
         id: "CG-SEC-001".to_string(),

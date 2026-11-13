@@ -6,7 +6,7 @@ use cyberguard_core::sarif::{
 
 #[test]
 fn test_sarif_code_flow_and_remediation_serialization() {
-    let mut log = SarifLog::new("CyberGuard", "0.3.0");
+    let mut log = SarifLog::new("CyberGuard", env!("CARGO_PKG_VERSION"));
 
     let taint_flow = CodeFlow {
         message: Some(Message {

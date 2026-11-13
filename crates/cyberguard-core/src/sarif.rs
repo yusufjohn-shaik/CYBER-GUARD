@@ -252,7 +252,7 @@ impl SarifResult {
             time: chrono::Utc::now().timestamp_millis(),
             metadata: OcsfProduct {
                 product: product_name.to_string(),
-                version: "0.3.0".to_string(),
+                version: env!("CARGO_PKG_VERSION").to_string(),
             },
             finding_info: OcsfFindingInfo {
                 title: self.rule_id.clone(),
