@@ -1,7 +1,7 @@
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use cyberguard_core::config::CyberguardConfig;
-use cyberguard_core::sarif::SarifLog;
-use cyberguard_proc::{execute_process, ProcessOptions};
+use cyberguard_core::sarif::{Message, ReportingDescriptor, SarifLevel, SarifLog};
+use cyberguard_sast::{NativeRuleEngine, SastAnalyzer, ScanContext};
 use std::path::PathBuf;
 use tracing::{info, Level};
 use tracing_subscriber::FmtSubscriber;
@@ -9,7 +9,7 @@ use tracing_subscriber::FmtSubscriber;
 #[derive(Parser, Debug)]
 #[command(
     name = "cyberguard",
-    version = "0.3.0",
+    version = env!("CARGO_PKG_VERSION"),
     about = "Autonomous Vulnerability Intelligence & Remediation Platform",
     long_about = "CyberGuard is an uncompromising, next-generation open-source vulnerability intelligence platform\nbuilt in Rust. It discovers real flaws in modern software, correlates attack path graphs (DAG),\nand autonomously synthesizes AST-verified code fixes."
 )]
@@ -133,39 +133,86 @@ async fn main() -> anyhow::Result<()> {
         .unwrap_or_else(|_| CyberguardConfig::default());
 
     match cli.command {
-        Some(Commands::Scan(args)) => match args.format {
-            OutputFormat::Sarif => {
-                let log = SarifLog::new("CyberGuard", "0.3.0");
-                println!("{}", serde_json::to_string_pretty(&log)?);
+        Some(Commands::Scan(args)) => {
+            let mut ctx = ScanContext::new(&args.path);
+            if let Some(ref sev) = args.min_severity {
+                ctx = ctx.with_min_severity(Some(sev.clone()));
             }
-            OutputFormat::Json => {
-                let log = SarifLog::new("CyberGuard", "0.3.0");
-                println!("{}", serde_json::to_string_pretty(&log)?);
-            }
-            OutputFormat::Terminal => {
-                println!("🛡️  CyberGuard Security Engine v0.3.0");
-                println!("Scanning target: {}", args.path.display());
-                println!("Workspace: {}", config.general.workspace_dir.display());
 
-                println!("\n[+] Initializing static analysis and AST parser...");
-                println!("[+] Initializing subprocess supervisor (process-group isolated)...");
-                // Quick self-check of supervisor
-                let proc_opts = ProcessOptions::new(
-                    "git",
-                    vec![
-                        "rev-parse".to_string(),
-                        "--short".to_string(),
-                        "HEAD".to_string(),
-                    ],
-                );
-                if let Ok(out) = execute_process(proc_opts).await {
-                    if out.is_success() {
-                        println!("[+] Target repository git revision: {}", out.stdout.trim());
+            let engine = NativeRuleEngine::default();
+            let findings = engine.analyze(&ctx).await?;
+
+            match args.format {
+                OutputFormat::Sarif | OutputFormat::Json => {
+                    let mut log = SarifLog::new("CyberGuard SAST", env!("CARGO_PKG_VERSION"));
+                    for rule in engine.rules() {
+                        log.add_rule(ReportingDescriptor {
+                            id: rule.id.clone(),
+                            name: Some(rule.name.clone()),
+                            short_description: Message {
+                                text: rule.message.clone(),
+                            },
+                            full_description: None,
+                            help_uri: Some(rule.help_uri.clone()),
+                        });
                     }
+                    for finding in findings {
+                        log.add_result(finding);
+                    }
+                    println!("{}", serde_json::to_string_pretty(&log)?);
                 }
-                println!("[✓] Scan complete. Zero critical vulnerabilities found.");
+                OutputFormat::Terminal => {
+                    println!("🛡️  CyberGuard SAST Engine v{}", env!("CARGO_PKG_VERSION"));
+                    println!("Target: {}", args.path.display());
+                    println!("Workspace: {}", config.general.workspace_dir.display());
+                    println!("{:-<80}", "");
+
+                    if findings.is_empty() {
+                        println!("✅ No security vulnerabilities detected.");
+                    } else {
+                        println!("Found {} vulnerability alert(s):", findings.len());
+                        println!();
+                        for f in &findings {
+                            let loc_str = if let Some(loc) = f.locations.first() {
+                                if let Some(phys) = &loc.physical_location {
+                                    if let Some(reg) = &phys.region {
+                                        format!(
+                                            "{}:{}:{}",
+                                            phys.artifact_location.uri,
+                                            reg.start_line,
+                                            reg.start_column.unwrap_or(1)
+                                        )
+                                    } else {
+                                        phys.artifact_location.uri.clone()
+                                    }
+                                } else {
+                                    "-".to_string()
+                                }
+                            } else {
+                                "-".to_string()
+                            };
+
+                            let sev_label = match f.level {
+                                SarifLevel::Error => "🔴 ERROR",
+                                SarifLevel::Warning => "🟡 WARN ",
+                                SarifLevel::Note => "🔵 NOTE ",
+                                SarifLevel::None => "⚪ NONE ",
+                            };
+
+                            println!("{} [{}] {}", sev_label, f.rule_id, loc_str);
+                            println!("   └── {}", f.message.text);
+                            if let Some(fps) = &f.partial_fingerprints {
+                                if let Some(hash) = fps.get("logicalLocationTokenHash/v1") {
+                                    let preview = if hash.len() > 16 { &hash[..16] } else { hash };
+                                    println!("   └── Fingerprint: {}", preview);
+                                }
+                            }
+                        }
+                    }
+                    println!("{:-<80}", "");
+                }
             }
-        },
+        }
         Some(Commands::Audit(args)) => {
             println!("🔍 Auditing target: {}", args.target);
             info!("Audit completed for target {}", args.target);

@@ -10,7 +10,7 @@ CyberGuard is being built modularly into the world's #1 open-source cybersecurit
 - [x] **Module 01: Legal & Open Source Governance** (Apache 2.0, Safe Harbor, DCO, OpenSSF Scorecard)
 - [x] **Module 02: Core Rust CLI & Microkernel** (clap CLI tree, figment config loader, tokio subprocess supervisor)
 - [x] **Module 03: Universal Data Bus** (OASIS SARIF v2.1.0 & OCSF engine with serde typed models)
-- [ ] **Module 04: SAST Engine** (Static Analysis orchestrator for Semgrep, CodeQL, Gosec, Bandit)
+- [x] **Module 04: SAST Static Analysis Engine** (In-process linear-time regex engine, SastAnalyzer trait, walker, OASIS SARIF v2.1.0)
 - [ ] **Module 05: SCA & Supply Chain** (Trivy, Grype, Syft SBOM generation, OSV-Scanner)
 - [ ] **Module 06: Secret Detection Engine** (Gitleaks, TruffleHog subprocess, entropy validator)
 - [ ] **Module 07: Container & OCI Security** (Docker image scanning, Dockle, Hadolint)

@@ -3,6 +3,7 @@ members = [
     "crates/cyberguard-core",
     "crates/cyberguard-proc",
     "crates/cyberguard-cli",
+    "crates/cyberguard-sast",
 ]
 resolver = "2"
 
@@ -52,3 +53,9 @@ sha2 = "0.10"
 # Internal workspace crates
 cyberguard-core = { path = "crates/cyberguard-core" }
 cyberguard-proc = { path = "crates/cyberguard-proc" }
+cyberguard-sast = { path = "crates/cyberguard-sast" }
+
+# SAST Engine dependencies
+regex = "1.11"
+walkdir = "2.5"
+async-trait = "0.1"
