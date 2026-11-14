@@ -80,6 +80,7 @@ tmp/
 temp/
 scratch/
 experiments/
+founder/
 *.log
 test_results/
 output/

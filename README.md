@@ -18,8 +18,7 @@
 [Quickstart](#-quickstart) •
 [Capability Matrix](#-capability-status-matrix) •
 [Architecture](#-system-architecture) •
-[Contributing](#-join-the-community) •
-[Roadmap](ROADMAP.md)
+[Contributing](#-join-the-community)
 
 </div>
 
