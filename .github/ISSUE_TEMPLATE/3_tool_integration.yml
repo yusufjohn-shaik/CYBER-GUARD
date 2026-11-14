@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         CyberGuard aims to be the universal orchestrator for best-of-breed open-source security tools.
-        Please check our [Tool Analysis Guidelines](../../docs/modules/MODULE_01.md) before submitting.
+        Please check our [Contributing Guidelines](../../CONTRIBUTING.md) before submitting.
   - type: input
     id: tool_name
     attributes:

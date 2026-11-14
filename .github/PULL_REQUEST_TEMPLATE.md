@@ -22,7 +22,7 @@
 - [ ] **Safe Harbor Compliance:** No weaponized exploit payloads, shellcode, or malicious automation scripts are included.
 - [ ] **Test Coverage:** Automated unit/integration tests (`cargo test --workspace`) have been added/updated and achieve **>= 80% coverage**.
 - [ ] **Linting & Formatting:** Code compiles cleanly with zero warnings under `cargo clippy --workspace -- -D warnings` and passes `cargo fmt --check`.
-- [ ] **Documentation:** User-facing flags, configuration schemas, or module documents in `docs/modules/` have been updated.
+- [ ] **Documentation:** User-facing flags, configuration schemas, or README documentation have been updated.
 
 ---
 

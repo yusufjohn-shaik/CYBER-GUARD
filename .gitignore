@@ -81,6 +81,7 @@ temp/
 scratch/
 experiments/
 founder/
+docs/
 *.log
 test_results/
 output/
